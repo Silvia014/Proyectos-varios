@@ -1,0 +1,94 @@
+Markdown para solicitud de datos
+
+
+# Solicitud [NOMBRE_TAREA]
+
+## Contexto
+- Conjunto de datos: [DESCRIPCIÓN_CONJUNTO_DE_DATOS]
+- Parámetros: [PARÁMETROS]
+
+## Análisis Requerido
+1. [PASO_DE_ANÁLISIS_1]
+2. [PASO_DE_ANÁLISIS_2]
+
+## Formato de Salida
+- [DETALLES_DE_SALIDA]
+
+## Criterios de Éxito
+- [CRITERIO_1]
+- [CRITERIO_2]
+
+
+
+Solicitud JSON a la IA para información
+
+Recomienda 3 restaurantes italianos en San Francisco.
+Devuelve en JSON con esta estructura:
+{
+  "restaurants": [
+    {
+      "name": "string",
+      "neighborhood": "string",
+      "price_range": "$$-$$$",
+      "specialties": ["dish1", "dish2"],
+      "vegetarian_friendly": boolean
+    }
+  ]
+}
+
+Recomendaciones de peliculas 4 campos, tipo y restricciones
+
+Devuelve en JSON esta estructura:
+
+{
+    “películas”: [
+   {
+     “name”: “string”,
+     “genre”: “string”,
+     “priceticket_range”: “€€”,
+     “plot”: [“adventures”,”horror”,”whodunnit”]
+     “kids_allowed”: boolean
+  }
+]
+}
+
+
+Markdown para solicitud de datos
+
+Genera un temaria de curso con:
+- course_tittle como cadena (formato XX-XXXXX)
+- lecciones con id de leccion (numero), titulo (cadena) y duración en minutos (número)
+- arreglo de cursos con seccion_id (cadena), tittle (cadena) y lecciones (arreglo)
+
+Devuelve SOLO JSON válido que coincida con este esquema.
+
+{
+  "course": {
+    "title": "AI Basics",
+    "lessons": [
+      {"id": 1, "name": "Introduction"},
+      {"id": 2, "name": "Core Concepts"}
+    ]
+  }
+}
+
+YAML para estructurar 
+
+course:
+  title: AI Basics
+  lessons: 
+    -id: 1
+      name: Introduction
+    -id: 2
+      name: Core Concepts
+
+
+Toon para reducción de tokens
+
+users[3] {id,name,role}:
+1,Alice,admin
+2,Bob,user
+3,Charlie,user
+
+
+
