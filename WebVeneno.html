@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veneno Tattoo The Gallery · Estudio de tatuajes en Sevilla</title>
+<meta name="description" content="Estudio de tatuajes profesional en Sevilla. Realismo, fineline, grabado, anime y lettering. Diseño a medida, higiene certificada y ambiente cuidado. Reserva tu cita.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0d0f0b;
+    --ink-2:#171912;
+    --card:#1b1d16;
+    --line:#33362b;
+    --bone:#efe9dc;
+    --bone-dim:#c9c2b0;
+    --viper:#7f9a52;
+    --viper-bright:#a3c46a;
+    --blood:#9c3226;
+    --blood-bright:#c14431;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'Fraunces', serif;
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  h1,h2,h3,.display{
+    font-family:'Bebas Neue', sans-serif;
+    font-weight:400;
+    letter-spacing:0.03em;
+    line-height:1.02;
+    color:var(--bone);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--viper-bright);
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  section{position:relative;}
+
+  /* Texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    opacity:0.05;
+    background-image:radial-gradient(rgba(239,233,220,0.6) 0.5px, transparent 0.5px);
+    background-size:3px 3px;
+  }
+
+  /* NAV */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px;
+    background:linear-gradient(to bottom, rgba(13,15,11,0.92), rgba(13,15,11,0));
+    transition:background 0.3s ease, padding 0.3s ease, border-color .3s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.nav.solid{
+    background:rgba(13,15,11,0.96);
+    backdrop-filter:blur(6px);
+    padding:12px 28px;
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .brand svg{width:30px;height:30px;flex-shrink:0;}
+  .brand-word{font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:0.12em;}
+  .brand-word span{color:var(--viper-bright);}
+  nav.links{display:flex; gap:30px; align-items:center;}
+  nav.links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--bone-dim);
+    position:relative;
+    padding-bottom:4px;
+  }
+  nav.links a::after{
+    content:""; position:absolute; left:0; bottom:0; height:1px; width:0;
+    background:var(--viper-bright); transition:width .25s ease;
+  }
+  nav.links a:hover{color:var(--bone);}
+  nav.links a:hover::after{width:100%;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase;
+    padding:13px 24px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+    white-space:nowrap;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn-solid{background:var(--blood); color:var(--bone);}
+  .btn-solid:hover{background:var(--blood-bright);}
+  .btn-ghost{border-color:var(--line); color:var(--bone);}
+  .btn-ghost:hover{border-color:var(--viper-bright); color:var(--viper-bright);}
+  .nav-cta{display:none;}
+  @media(min-width:880px){.nav-cta{display:inline-flex;}}
+  .burger{display:flex; background:none; border:none; color:var(--bone); font-size:1.6rem; cursor:pointer;}
+  @media(min-width:880px){.burger{display:none;}}
+  nav.links{display:none;}
+  @media(min-width:880px){nav.links{display:flex;}}
+
+  .mobile-menu{
+    position:fixed; inset:0; background:var(--ink); z-index:99;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px;
+    transform:translateY(-100%); transition:transform .35s ease;
+  }
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:0.08em; text-decoration:none; color:var(--bone);}
+  .mobile-close{position:absolute; top:22px; right:26px; background:none; border:none; color:var(--bone); font-size:2rem; cursor:pointer;}
+
+  /* HERO */
+  .hero{
+    min-height:100svh;
+    display:flex; align-items:center;
+    padding:140px 0 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:center; position:relative; z-index:2;}
+  @media(max-width:900px){.hero .wrap{grid-template-columns:1fr;}}
+  .hero h1{font-size:clamp(3rem, 7vw, 5.6rem); margin:14px 0 22px;}
+  .hero p.lede{font-family:'Fraunces',serif; font-weight:300; font-size:1.15rem; color:var(--bone-dim); max-width:46ch; margin-bottom:34px;}
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
+  .hero-art{position:relative; display:flex; justify-content:center; align-items:center;}
+  .hero-art svg{width:100%; max-width:420px; height:auto;}
+  .needle-line{
+    fill:none; stroke:var(--viper-bright); stroke-width:1.6;
+    stroke-dasharray:1400; stroke-dashoffset:1400;
+    animation:draw 3.2s ease forwards 0.4s;
+  }
+  .needle-line.two{stroke:var(--blood-bright); stroke-dasharray:900; stroke-dashoffset:900; animation:draw2 2.6s ease forwards 1.4s;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes draw2{to{stroke-dashoffset:0;}}
+  .hero-bg-line{position:absolute; inset:0; opacity:0.18; pointer-events:none;}
+
+  /* SECTION HEADS */
+  .section-head{max-width:640px; margin-bottom:52px;}
+  .section-head h2{font-size:clamp(2.2rem,4.5vw,3.2rem); margin:10px 0 16px;}
+  .section-head p{color:var(--bone-dim); font-size:1.02rem;}
+  .pad{padding:110px 0;}
+  .border-top{border-top:1px solid var(--line);}
+
+  /* ESTILOS grid */
+  .estilos-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .estilo-card{background:var(--ink); padding:0 0 28px; transition:background .3s ease; overflow:hidden;}
+  .estilo-card:hover{background:var(--card);}
+  .estilo-photo-wrap{width:100%; height:230px; overflow:hidden; margin-bottom:22px; position:relative;}
+  .estilo-photo-wrap img{width:100%; height:100%; object-fit:cover; filter:grayscale(35%) contrast(1.05); transition:transform .6s ease, filter .4s ease;}
+  .estilo-card:hover .estilo-photo-wrap img{transform:scale(1.06); filter:grayscale(0%) contrast(1.05);}
+  .estilo-card .estilo-body{padding:0 28px;}
+  .estilo-card svg{width:34px; height:34px; stroke:var(--viper-bright); margin-bottom:14px;}
+  .estilo-card h3{font-size:1.5rem; margin:0 0 10px;}
+  .estilo-card p{color:var(--bone-dim); font-size:0.92rem; margin:0;}
+
+  .estudio-photo{width:100%; height:340px; object-fit:cover; margin-bottom:28px; filter:grayscale(20%) contrast(1.05);}
+  .galeria-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;}
+  .galeria-grid img{width:100%; height:230px; object-fit:cover; filter:grayscale(30%) contrast(1.05); transition:transform .5s ease, filter .4s ease;}
+  .galeria-grid a{overflow:hidden; display:block; border:1px solid var(--line);}
+  .galeria-grid a:hover img{transform:scale(1.07); filter:grayscale(0%) contrast(1.05);}
+
+  /* ESTUDIO / proceso */
+  .estudio-split{display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:start;}
+  @media(max-width:880px){.estudio-split{grid-template-columns:1fr;}}
+  .proceso-step{display:flex; gap:20px; padding:24px 0; border-bottom:1px solid var(--line);}
+  .proceso-step:last-child{border-bottom:none;}
+  .proceso-num{font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--viper-bright); min-width:50px;}
+  .proceso-step h4{margin:0 0 6px; font-family:'IBM Plex Mono',monospace; font-size:0.95rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--bone); font-weight:500;}
+  .proceso-step p{margin:0; color:var(--bone-dim); font-size:0.94rem;}
+  .estudio-copy p{color:var(--bone-dim); margin-bottom:18px;}
+
+  /* FEATURES */
+  .features{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:36px;}
+  .feature{border-left:2px solid var(--viper); padding-left:20px;}
+  .feature h3{font-size:1.25rem; margin:0 0 8px; font-family:'Fraunces',serif; font-weight:500;}
+  .feature p{color:var(--bone-dim); font-size:0.92rem; margin:0;}
+
+  /* TESTIMONIOS */
+  .testi-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px;}
+  .testi{background:var(--card); border:1px solid var(--line); padding:32px 28px; border-radius:var(--radius);}
+  .testi p.quote{font-style:italic; color:var(--bone); font-size:1.02rem; margin:0 0 18px;}
+  .testi .who{font-family:'IBM Plex Mono',monospace; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--viper-bright);}
+  .stars{color:var(--blood-bright); letter-spacing:2px; margin-bottom:10px; font-size:0.9rem;}
+
+  /* CONTACTO / FORM */
+  .contacto-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px;}
+  @media(max-width:900px){.contacto-grid{grid-template-columns:1fr;}}
+  .info-card{background:var(--card); border:1px solid var(--line); padding:34px; border-radius:var(--radius); height:fit-content;}
+  .info-card h3{font-size:1.4rem; margin-top:0;}
+  .info-row{display:flex; gap:14px; margin-bottom:20px; align-items:flex-start;}
+  .info-row svg{width:20px; height:20px; stroke:var(--viper-bright); flex-shrink:0; margin-top:3px;}
+  .info-row a, .info-row span{color:var(--bone-dim); font-size:0.95rem; text-decoration:none;}
+  .info-row a:hover{color:var(--viper-bright);}
+  .social-row{display:flex; gap:14px; margin-top:24px;}
+  .social-row a{width:38px; height:38px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; transition:border-color .2s ease;}
+  .social-row a:hover{border-color:var(--viper-bright);}
+  .social-row svg{width:16px; height:16px; stroke:var(--bone);}
+
+  form.booking{display:flex; flex-direction:column; gap:18px;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media(max-width:600px){.field-row{grid-template-columns:1fr;}}
+  .field label{
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--bone-dim); margin-bottom:8px;
+  }
+  .field input, .field select, .field textarea{
+    width:100%; background:var(--ink-2); border:1px solid var(--line); color:var(--bone);
+    padding:13px 14px; font-family:'Fraunces',serif; font-size:0.98rem; border-radius:var(--radius);
+    transition:border-color .2s ease;
+  }
+  .field input::placeholder, .field textarea::placeholder{color:#6b6c60;}
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none; border-color:var(--viper-bright);
+  }
+  .field textarea{resize:vertical; min-height:100px;}
+  .motivo-toggle{display:flex; gap:10px; margin-bottom:6px;}
+  .motivo-btn{
+    flex:1; text-align:center; padding:11px; border:1px solid var(--line); border-radius:var(--radius);
+    font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    cursor:pointer; color:var(--bone-dim); background:transparent; transition:all .2s ease;
+  }
+  .motivo-btn.active{border-color:var(--viper-bright); color:var(--viper-bright); background:rgba(163,196,106,0.08);}
+  .form-note{font-size:0.82rem; color:#8b8c7f; font-family:'IBM Plex Mono',monospace;}
+  .submit-row{display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+  .form-msg{font-family:'IBM Plex Mono',monospace; font-size:0.82rem; color:var(--viper-bright); display:none;}
+  .form-msg.show{display:block;}
+
+  /* FLOATING WHATSAPP */
+  .float-wa{
+    position:fixed; bottom:24px; right:24px; z-index:90;
+    width:58px; height:58px; border-radius:50%;
+    background:var(--viper); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 20px rgba(0,0,0,0.4);
+    text-decoration:none; transition:transform .2s ease, background .2s ease;
+  }
+  .float-wa:hover{transform:scale(1.08); background:var(--viper-bright);}
+  .float-wa svg{width:28px; height:28px; fill:var(--ink);}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line); padding:60px 0 30px;}
+  .footer-top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px; margin-bottom:40px;}
+  .footer-links{display:flex; gap:60px; flex-wrap:wrap;}
+  .footer-col h4{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--bone-dim); margin:0 0 16px;}
+  .footer-col a{display:block; text-decoration:none; color:var(--bone); font-size:0.92rem; margin-bottom:10px; opacity:0.85;}
+  .footer-col a:hover{opacity:1; color:var(--viper-bright);}
+  .footer-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-top:24px; border-top:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:#7a7b6f;}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header class="nav" id="siteNav">
+  <a href="#top" class="brand">
+    <img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/logo-veneno-tattoo-the-gallery-141w.jpg" alt="Veneno Tattoo The Gallery" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+    <span class="brand-word">VENENO <span>TATTOO</span></span>
+  </a>
+  <nav class="links">
+    <a href="#estilos">Estilos</a>
+    <a href="#estudio">El estudio</a>
+    <a href="#opiniones">Opiniones</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  <a href="#contacto" class="btn btn-solid nav-cta" data-motivo="reserva">Reservar cita</a>
+  <button class="burger" id="burgerBtn" aria-label="Abrir menú">☰</button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Cerrar menú">×</button>
+  <a href="#estilos">Estilos</a>
+  <a href="#estudio">El estudio</a>
+  <a href="#opiniones">Opiniones</a>
+  <a href="#contacto">Contacto</a>
+  <a href="#contacto" class="btn btn-solid" data-motivo="reserva" style="margin-top:10px;">Reservar cita</a>
+</div>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Estudio de tatuajes · Sevilla</p>
+        <h1>El arte que<br>llevarás<br>para siempre</h1>
+        <p class="lede">Un estudio profesional donde cada idea se convierte en un diseño único, trabajado con material estéril de un solo uso y un ambiente pensado para que disfrutes cada sesión.</p>
+        <div class="hero-ctas">
+          <a href="#contacto" class="btn btn-solid" data-motivo="reserva">Reservar cita</a>
+          <a href="#estilos" class="btn btn-ghost">Ver estilos</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <path class="needle-line" d="M60 320 C 90 220, 150 260, 170 190 C 190 120, 260 150, 260 90 C 260 50, 230 40, 210 55" />
+          <path class="needle-line two" d="M100 100 C 140 80, 160 110, 200 95 C 230 83, 250 100, 280 90" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad border-top" id="estilos">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Nuestros estilos</p>
+        <h2>Un artista para cada idea</h2>
+        <p>Cada estilo tiene su propia técnica y su propio artista especializado. Cuéntanos qué imaginas y te asignamos la mano adecuada.</p>
+      </div>
+      <div class="estilos-grid reveal">
+        <div class="estilo-card">
+          <div class="estilo-photo-wrap"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/4+%283%29-640w.jpeg" alt="Tatuaje realista en blanco y negro de faraones egipcios en el brazo"></div>
+          <div class="estilo-body">
+            <h3>Realismo</h3>
+            <p>Retratos y escenas con profundidad de sombra y detalle fotográfico.</p>
+          </div>
+        </div>
+        <div class="estilo-card">
+          <div class="estilo-photo-wrap"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/618690376_18068461130545697_5230574952411407556_n-640w.jpg" alt="Microrrealismo: pequeño tatuaje de un perro en la pantorrilla"></div>
+          <div class="estilo-body">
+            <h3>Microrrealismo</h3>
+            <p>Piezas pequeñas con precisión extrema, ideales para diseños delicados.</p>
+          </div>
+        </div>
+        <div class="estilo-card">
+          <div class="estilo-photo-wrap"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/2-798a9562-640w.jpeg" alt="Fineline: tatuaje de líneas finas con siluetas de personas en la pierna"></div>
+          <div class="estilo-body">
+            <h3>Fineline</h3>
+            <p>Trazo fino y limpio, elegante y minimalista.</p>
+          </div>
+        </div>
+        <div class="estilo-card">
+          <div class="estilo-photo-wrap"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/3+%281%29-38b7f3ed-640w.jpeg" alt="Grabado: tatuaje floral en blanco y negro en la pantorrilla"></div>
+          <div class="estilo-body">
+            <h3>Grabado</h3>
+            <p>Inspirado en el aguafuerte clásico: textura, contraste y carácter.</p>
+          </div>
+        </div>
+        <div class="estilo-card">
+          <div class="estilo-photo-wrap"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/5-640w.jpeg" alt="Anime: tatuaje de personaje de anime en el muslo"></div>
+          <div class="estilo-body">
+            <h3>Anime</h3>
+            <p>Personajes y escenas con la energía y el color del manga japonés.</p>
+          </div>
+        </div>
+        <div class="estilo-card">
+          <div class="estilo-photo-wrap"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/Lettering-640w.webp" alt="Lettering: caligrafía ornamentada tatuada en la muñeca"></div>
+          <div class="estilo-body">
+            <h3>Lettering</h3>
+            <p>Caligrafía y tipografía ornamentada para frases y nombres.</p>
+          </div>
+        </div>
+        <div class="estilo-card">
+          <svg viewBox="0 0 48 48" fill="none" stroke-width="1.4" style="margin:36px 28px 14px;"><circle cx="24" cy="24" r="12"/><path d="M24 12v24M12 24h24"/></svg>
+          <div class="estilo-body">
+            <h3>Surrealismo</h3>
+            <p>Composiciones oníricas que mezclan formas y significados.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad border-top" id="estudio">
+    <div class="wrap">
+      <div class="estudio-split">
+        <div class="reveal">
+          <p class="eyebrow">El estudio</p>
+          <h2 style="font-size:clamp(2rem,4vw,2.8rem); margin:10px 0 24px;">Cuidado en cada detalle,<br>dentro y fuera de la piel</h2>
+          <img class="estudio-photo" src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/-+100-1728w.jpg" alt="Sala del estudio con sillones cómodos, luz cálida y decoración de bambú">
+          <div class="estudio-copy">
+            <p>En Veneno Tattoo The Gallery entendemos que un tatuaje empieza mucho antes de la aguja. Por eso cuidamos cada paso: desde la primera conversación sobre tu idea hasta el consejo de cuidado posterior.</p>
+            <p>Trabajamos con material estéril de un solo uso, protocolos de higiene certificados y un espacio luminoso y tranquilo donde cada sesión se vive con calma, sin prisas.</p>
+          </div>
+          <div class="features" style="margin-top:36px;">
+            <div class="feature">
+              <h3>Higiene certificada</h3>
+              <p>Protocolos de esterilización y material desechable en cada sesión.</p>
+            </div>
+            <div class="feature">
+              <h3>Diseño a medida</h3>
+              <p>Ningún tatuaje sale de una plantilla: cada pieza se diseña para ti.</p>
+            </div>
+            <div class="feature">
+              <h3>Artistas especializados</h3>
+              <p>Cada estilo lo trabaja quien mejor lo domina.</p>
+            </div>
+            <div class="feature">
+              <h3>Ambiente cuidado</h3>
+              <p>Espacio cómodo pensado para sesiones largas sin agobio.</p>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <p class="eyebrow" style="margin-bottom:20px;">De la idea al tatuaje</p>
+          <div class="proceso-step">
+            <div class="proceso-num">01</div>
+            <div><h4>Nos cuentas tu idea</h4><p>Por WhatsApp, Instagram o el formulario de esta web, nos cuentas qué tienes en mente.</p></div>
+          </div>
+          <div class="proceso-step">
+            <div class="proceso-num">02</div>
+            <div><h4>Diseño personalizado</h4><p>El artista adecuado prepara un boceto único y te lo enseña antes de la sesión.</p></div>
+          </div>
+          <div class="proceso-step">
+            <div class="proceso-num">03</div>
+            <div><h4>Sesión en estudio</h4><p>Trabajamos con calma, en un ambiente cómodo y con todo el material esterilizado.</p></div>
+          </div>
+          <div class="proceso-step">
+            <div class="proceso-num">04</div>
+            <div><h4>Cuidado posterior</h4><p>Te acompañamos con indicaciones claras para una cicatrización perfecta.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad border-top" id="opiniones">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Opiniones</p>
+        <h2>Lo que dicen quienes ya llevan su idea en la piel</h2>
+      </div>
+      <div class="testi-row reveal">
+        <div class="testi">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Desde la primera cita se nota la profesionalidad. El diseño final superó lo que tenía en mente."</p>
+          <div class="who">— Marta G., Sevilla</div>
+        </div>
+        <div class="testi">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Ambiente muy cuidado y limpio. Me explicaron todo el proceso de higiene antes de empezar."</p>
+          <div class="who">— Álvaro R., Sevilla</div>
+        </div>
+        <div class="testi">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Llevaba tiempo queriendo tatuarme y no me arrepiento de haber elegido este estudio."</p>
+          <div class="who">— Lucía M., Dos Hermanas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad border-top">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Algunos de nuestros trabajos</p>
+        <h2>Piezas reales, hechas en nuestro estudio</h2>
+      </div>
+      <div class="galeria-grid reveal">
+        <a href="https://www.instagram.com/venenotattoostudio/" target="_blank" rel="noopener"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/4+%283%29-640w.jpeg" alt="Tatuaje realista de faraones egipcios en el brazo"></a>
+        <a href="https://www.instagram.com/venenotattoostudio/" target="_blank" rel="noopener"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/618690376_18068461130545697_5230574952411407556_n-640w.jpg" alt="Tatuaje microrrealista de un perro en la pantorrilla"></a>
+        <a href="https://www.instagram.com/venenotattoostudio/" target="_blank" rel="noopener"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/2-798a9562-640w.jpeg" alt="Tatuaje fineline de siluetas en la pierna"></a>
+        <a href="https://www.instagram.com/venenotattoostudio/" target="_blank" rel="noopener"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/3+%281%29-38b7f3ed-640w.jpeg" alt="Tatuaje floral estilo grabado en la pantorrilla"></a>
+        <a href="https://www.instagram.com/venenotattoostudio/" target="_blank" rel="noopener"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/5-640w.jpeg" alt="Tatuaje de anime en el muslo"></a>
+        <a href="https://www.instagram.com/venenotattoostudio/" target="_blank" rel="noopener"><img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/Lettering-640w.webp" alt="Lettering ornamentado en la muñeca"></a>
+      </div>
+      <div style="text-align:center; margin-top:34px;">
+        <a href="https://www.instagram.com/venenotattoostudio/" target="_blank" rel="noopener" class="btn btn-ghost">Ver más en Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad border-top" id="contacto">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Reserva tu cita</p>
+        <h2>Cuéntanos tu idea, nosotros la convertimos en arte</h2>
+        <p>Rellena el formulario y te responderemos por WhatsApp con disponibilidad y presupuesto orientativo.</p>
+      </div>
+      <div class="contacto-grid">
+        <form class="booking reveal" id="bookingForm">
+          <div class="motivo-toggle">
+            <button type="button" class="motivo-btn active" data-motivo="reserva">Reservar cita</button>
+            <button type="button" class="motivo-btn" data-motivo="consulta">Consulta general</button>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required>
+            </div>
+            <div class="field">
+              <label for="telefono">Teléfono</label>
+              <input id="telefono" name="telefono" type="tel" placeholder="600 000 000" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="estilo">Estilo de interés</label>
+              <select id="estilo" name="estilo">
+                <option value="Sin definir">Aún no lo sé</option>
+                <option>Realismo</option>
+                <option>Microrrealismo</option>
+                <option>Fineline</option>
+                <option>Grabado</option>
+                <option>Anime</option>
+                <option>Lettering</option>
+                <option>Surrealismo</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="zona">Zona del cuerpo</label>
+              <input id="zona" name="zona" type="text" placeholder="Ej: antebrazo">
+            </div>
+          </div>
+          <div class="field">
+            <label for="mensaje">Cuéntanos tu idea</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Describe tu idea, tamaño aproximado y cualquier referencia que tengas..."></textarea>
+          </div>
+          <div class="submit-row">
+            <button type="submit" class="btn btn-solid">Enviar por WhatsApp</button>
+            <span class="form-msg" id="formMsg">Abriendo WhatsApp con tu mensaje...</span>
+          </div>
+          <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje ya redactado, listo para confirmar el envío.</p>
+        </form>
+
+        <div class="info-card reveal">
+          <h3>Veneno Tattoo The Gallery</h3>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span>Sevilla, España</span>
+          </div>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M6 2h4l2 5-2.5 1.5a11 11 0 0 0 6 6L17 12l5 2v4a2 2 0 0 1-2 2C11.5 20 4 12.5 4 4a2 2 0 0 1 2-2z"/></svg>
+            <a href="https://wa.me/34640134968" target="_blank" rel="noopener">+34 640 13 49 68 (WhatsApp)</a>
+          </div>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <a href="https://www.instagram.com/venenotattoostudio/" target="_blank" rel="noopener">@venenotattoostudio</a>
+          </div>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            <span>Martes a sábado, con cita previa</span>
+          </div>
+          <div class="social-row">
+            <a href="https://www.instagram.com/venenotattoostudio/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            </a>
+            <a href="https://facebook.com/venenotattoostudio" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V12H8v3h2.5v6h3v-6H16l0.5-3h-3.5V9.8c0-.5.3-.8.8-.8z"/></svg>
+            </a>
+            <a href="https://wa.me/34640134968" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M6 2h4l2 5-2.5 1.5a11 11 0 0 0 6 6L17 12l5 2v4a2 2 0 0 1-2 2C11.5 20 4 12.5 4 4a2 2 0 0 1 2-2z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<a class="float-wa" href="https://wa.me/34640134968?text=Hola%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20vuestro%20estudio" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.4 8.6 3.4 15.6c0 2.6.7 5 2 7.1L3 29l6.5-2.3c2 .9 4.2 1.4 6.5 1.4 7 0 12.6-5.6 12.6-12.6S23 3 16 3zm0 22.9c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.9 1.4 1.3-3.8-.3-.4a10.2 10.2 0 0 1-1.7-5.7C5.4 9.9 10.1 5.2 16 5.2c5.9 0 10.6 4.7 10.6 10.5S21.9 25.9 16 25.9zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.8c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5s-.7-1.7-1-2.3-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3 2.2 3.3 5.3 4.6c.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.4.2-1.5s-.3-.2-.6-.4z"/></svg>
+</a>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a href="#top" class="brand" style="margin-bottom:10px;">
+          <img src="https://le-de.cdn-website.com/921b35354d7e492c9a21021fbb4cd5be/dms3rep/multi/opt/logo-veneno-tattoo-the-gallery-141w.jpg" alt="Veneno Tattoo The Gallery" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+          <span class="brand-word">VENENO <span>TATTOO</span></span>
+        </a>
+        <p style="color:var(--bone-dim); max-width:280px; font-size:0.9rem;">Estudio de tatuajes en Sevilla. Arte a medida, higiene certificada y un ambiente pensado para ti.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Navegación</h4>
+          <a href="#estilos">Estilos</a>
+          <a href="#estudio">El estudio</a>
+          <a href="#opiniones">Opiniones</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <a href="https://wa.me/34640134968" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://www.instagram.com/venenotattoostudio/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://facebook.com/venenotattoostudio" target="_blank" rel="noopener">Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Veneno Tattoo The Gallery — Sevilla</span>
+      <span>Diseño de ejemplo</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav background
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  const burger = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+  burger.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Motivo toggle (reserva / consulta) — also triggered from any CTA with data-motivo
+  const motivoBtns = document.querySelectorAll('.motivo-btn');
+  let motivoActual = 'reserva';
+  function setMotivo(valor){
+    motivoActual = valor;
+    motivoBtns.forEach(b => b.classList.toggle('active', b.dataset.motivo === valor));
+  }
+  motivoBtns.forEach(btn => btn.addEventListener('click', () => setMotivo(btn.dataset.motivo)));
+  document.querySelectorAll('[data-motivo]').forEach(el => {
+    if (!el.classList.contains('motivo-btn')) {
+      el.addEventListener('click', () => setMotivo(el.dataset.motivo));
+    }
+  });
+
+  // Booking form -> WhatsApp deep link with prefilled message
+  const form = document.getElementById('bookingForm');
+  const formMsg = document.getElementById('formMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const estilo = document.getElementById('estilo').value;
+    const zona = document.getElementById('zona').value.trim();
+    const mensaje = document.getElementById('mensaje').value.trim();
+
+    const tipo = motivoActual === 'reserva' ? 'Quiero reservar una cita' : 'Tengo una consulta general';
+    let texto = `Hola, soy ${nombre}. ${tipo} en Veneno Tattoo.%0A` +
+                `Teléfono: ${telefono}%0A` +
+                `Estilo de interés: ${estilo}%0A`;
+    if (zona) texto += `Zona del cuerpo: ${zona}%0A`;
+    if (mensaje) texto += `Idea: ${mensaje}`;
+
+    const url = `https://wa.me/34640134968?text=${texto}`;
+    formMsg.classList.add('show');
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>
