@@ -109,12 +109,14 @@
 // const frutas = ["Manzana", "pera"] ;
 // console.log(frutas)
 
-// // frutas.push("banana")
+// frutas.push("banana")
+// console.log(frutas)
 
-let arrayNumeros = [1,2,3,4,5,6,7,8,9,10];
+// let arrayNumeros = [1,2,3,4,5,6,7,8,9,10]
 
-arrayNumeros.forEach((numero) => {
-    console.log(numero * 2);
-});
+// let find = arrayNumeros.find((n)=> n % 2 === 0) //Busca el primer numero par
+// console.log(find)
 
-console.log(arrayNumeros);
+function generarNumero(){
+    let numeroRandom= Math.floor(Math.random() * 100) + 1;  
+}
