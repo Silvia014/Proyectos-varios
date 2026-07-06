@@ -117,6 +117,24 @@
 // let find = arrayNumeros.find((n)=> n % 2 === 0) //Busca el primer numero par
 // console.log(find)
 
-function generarNumero(){
-    let numeroRandom= Math.floor(Math.random() * 100) + 1;  
+function generarNumero() {
+    const numeroRandom = Math.floor(Math.random() * 100) + 1;
+    console.log("Numero generado:", numeroRandom);
+    return numeroRandom;
+}
+
+if (typeof document !== "undefined") {
+    const botonNumero = document.getElementById("botonNumero");
+    const parrafo = document.getElementById("numero") || document.getElementById("demo");
+
+    if (botonNumero) {
+        botonNumero.addEventListener("click", function () {
+            const numero = generarNumero();
+            if (parrafo) {
+                parrafo.textContent = numero;
+            }
+        });
+    }
+} else {
+    generarNumero();
 }
