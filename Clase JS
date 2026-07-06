@@ -1,107 +1,113 @@
-//tipos de variable
+// //tipos de variable
 
-let dejaque = "hola" //Puede cambiar
-const constante = "Constante" //constante, no se reasigna mas adelante
+// let dejaque = "hola" //Puede cambiar
+// const constante = "Constante" //constante, no se reasigna mas adelante
 
-//tipos de valores
+// //tipos de valores
 
-//primitivos
+// //primitivos
 
-let a = "Hola como estas" // string lleva comillas
-let b = 45 // number
-let c = true / false // booleanos
-let d = 3 == 3 //True
-let e = 2 == 3 //False
-let f = null //nulo-vacio
-let g = undefined //no definido
+// let a = "Hola como estas" // string lleva comillas
+// let b = 45 // number
+// let c = true / false // booleanos
+// let d = 3 == 3 //True
+// let e = 2 == 3 //False
+// let f = null //nulo-vacio
+// let g = undefined //no definido
 
-//Otros
+// //Otros
 
-//Array
-let array = ["Hola", 5, true, "Horacio", ["otro", "array"]];
+// //Array
+// let array = ["Hola", 5, true, "Horacio", ["otro", "array"]];
 
-//Objeto
-let persona = {
-    name:"Maria",
-    apellido:"Rodriguez",
-    edad:30,
-    ciudad:{
-        nombre:"Madrid",
-        cp:5263,
-    }
-};
+// //Objeto
+// let persona = {
+//     name:"Maria",
+//     apellido:"Rodriguez",
+//     edad:30,
+//     ciudad:{
+//         nombre:"Madrid",
+//         cp:5263,
+//     }
+// };
 
-//operadores
+// //operadores
 
-2>1 //Mayor que
-2<=2 //Menor que
-1 == "1" //igual que
-1 === 1 //exactamente igual que
-1!==1 // NO es igual que
-1==1 && 2==2 //And Y
-1==1 || 2==2 //Or O
+// 2>1 //Mayor que
+// 2<=2 //Menor que
+// 1 == "1" //igual que
+// 1 === 1 //exactamente igual que
+// 1!==1 // NO es igual que
+// 1==1 && 2==2 //And Y
+// 1==1 || 2==2 //Or O
 
-//funciones
+// //funciones
 
-function suma(a,b){
-    return a + b
-}
-
-const funcionArrow = (a,b) => {
-    return a + b
-}
-
-//Statements If
-
-let edad = 16
-let nacionalidad = "española"
-
-if (edad >= 18){
-
-    //console.log("Eres mayor de edad")
-
-} else if (edad >= 16){
-
-    //console.log("Eres casi mayor de edad")
-
-} else {
-
-   // console.log("Menor de edad")
-
-}
-
-//Ternario
-
-let ternario = edad >= 18? "Mayor de edad" : "Menor de edad"
-
-let ternario2 = edad >= 18 && nacionalidad == "española" ? "Mayor de edad y español" : edad >=16? "Eres casi mayor de edad" : "Menor de edad"
-
-
-//For Loop - Bucle For
-
-// desde ; mientras ; Que hace al final de cada loop
-
-// for(let i=0; i<=5; i++){
-//     //console.log("loop numer:" + i)
+// function suma(a,b){
+//     return a + b
 // }
 
-//FOR LOOP PARA ARRAYS
+// const funcionArrow = (a,b) => {
+//     return a + b
+// }
 
-let personas = ["Vanessa", "Juan", "Eduardo", "Horacio", "Fernando"];
+// //Statements If
+
+// let edad = 16
+// let nacionalidad = "española"
+
+// if (edad >= 18){
+
+//     //console.log("Eres mayor de edad")
+
+// } else if (edad >= 16){
+
+//     //console.log("Eres casi mayor de edad")
+
+// } else {
+
+//    // console.log("Menor de edad")
+
+// }
+
+// //Ternario
+
+// let ternario = edad >= 18? "Mayor de edad" : "Menor de edad"
+
+// let ternario2 = edad >= 18 && nacionalidad == "española" ? "Mayor de edad y español" : edad >=16? "Eres casi mayor de edad" : "Menor de edad"
+
+
+// //For Loop - Bucle For
+
+// // desde ; mientras ; Que hace al final de cada loop
+
+// // for(let i=0; i<=5; i++){
+// //     //console.log("loop numer:" + i)
+// // }
+
+// //FOR LOOP PARA ARRAYS
+
+// let personas = ["Vanessa", "Juan", "Eduardo", "Horacio", "Fernando"];
+
+// // for(let i=0; i < personas.length; i++){
+// //     console.log("Hola me llamo" + " " + personas[i])
+// // }
+
+// //FOR LOOP CON IF
 
 // for(let i=0; i < personas.length; i++){
-//     console.log("Hola me llamo" + " " + personas[i])
+
+// if(personas[i] === "Eduardo"){
+//     console.log("No me cae bien Eduardo")
+// }else {
+//     console.log("Me cae bien" + personas[i])
+// }
 // }
 
-//FOR LOOP CON IF
+// //FOR OF
 
-for(let i=0; i < personas.length; i++){
+const frutas = ["Manzana", "pera"] ;
+console.log(frutas)
 
-if(personas[i] === "Eduardo"){
-    console.log("No me cae bien Eduardo")
-}else {
-    console.log("Me cae bien" + personas[i])
-}
-}
-
-//FOR OF
+frutas.push("banana")
+console.log(frutas)
