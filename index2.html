@@ -182,7 +182,7 @@
       background-color: var(--primary-9348);
     }
 
-    /* Dashboard Layout Splits */
+    /* Main Dashboard Layout Splits */
     .grid-container-9348 {
       display: grid;
       grid-template-columns: 1fr;
@@ -190,7 +190,7 @@
     }
 
     @container dashboard-container-9348 (min-width: 1024px) {
-      .grid-container-9348 {
+      .grid-container-9348.with-editor-9348 {
         grid-template-columns: 2.8fr 1.2fr;
       }
     }
@@ -615,6 +615,130 @@
     .hidden-9348 {
       display: none !important;
     }
+
+    /* Discreet agency access link, tucked away so clients don't notice it */
+    .agency-access-link-9348 {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      color: var(--neutral-muted-9348);
+      opacity: 0.45;
+      font-size: 0.72rem;
+      font-family: var(--font-body-9348);
+      cursor: pointer;
+      padding: 6px 4px;
+      margin-top: 18px;
+      transition: opacity 0.2s ease;
+    }
+
+    .agency-access-link-9348:hover {
+      opacity: 1;
+    }
+
+    .agency-footer-row-9348 {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Login modal overlay */
+    .auth-overlay-9348 {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 16px;
+    }
+
+    .auth-modal-9348 {
+      background: var(--white-9348);
+      border-radius: var(--radius-lg-9348);
+      padding: 28px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: var(--shadow-lg-9348);
+    }
+
+    .auth-modal-header-9348 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .auth-modal-header-9348 h3 {
+      font-family: var(--font-display-9348);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .auth-error-9348 {
+      color: var(--danger-9348);
+      font-size: 0.82rem;
+      margin-top: 4px;
+      min-height: 16px;
+    }
+
+    .auth-actions-9348 {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn-secondary-9348 {
+      flex: 1;
+      background-color: var(--neutral-light-9348);
+      color: var(--neutral-dark-9348);
+      border: 1px solid var(--neutral-border-9348);
+      padding: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm-9348);
+      cursor: pointer;
+    }
+
+    .btn-primary-inline-9348 {
+      flex: 1;
+      background-color: var(--primary-9348);
+      color: var(--white-9348);
+      border: none;
+      padding: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm-9348);
+      cursor: pointer;
+    }
+
+    .role-badge-9348 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+
+    .role-badge-superadmin-9348 {
+      background-color: #FEF3C7;
+      color: #92400E;
+    }
+
+    .role-badge-admin-9348 {
+      background-color: var(--primary-light-9348);
+      color: var(--primary-9348);
+    }
+
+    .btn-logout-9348 {
+      background: none;
+      border: none;
+      color: var(--neutral-muted-9348);
+      font-size: 0.78rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -629,7 +753,7 @@
           <i class="fas fa-chart-line"></i>
         </div>
         <div class="brand-meta-9348">
-          <h1>Portal de mi Campaña en Vivo</h1>
+          <h1>Portal campaña SEM en vivo</h1>
           <p>Espacio de trabajo de rendimiento en tiempo real y centro de clientes</p>
         </div>
       </div>
@@ -639,15 +763,11 @@
           <span class="pulse-dot-9348"></span>
           Modo Cliente Activo
         </div>
-        <button class="toggle-editor-btn-9348" id="toggle-editor-btn-9348">
-          <i class="fas fa-edit"></i>
-          <span hidden>Panel de Entrada de Datos</span>
-        </button>
       </div>
     </header>
 
     <!-- Main Responsive Layout grid -->
-    <div class="grid-container-9348">
+    <div class="grid-container-9348" id="grid-container-9348">
       
       <!-- Left / Main Panel (Client View Dashboard) -->
       <main class="main-content-9348">
@@ -673,7 +793,7 @@
               </div>
             </div>
             <div>
-              <div class="kpi-value-9348" id="val-cost-9348">$1245,80</div>
+              <div class="kpi-value-9348" id="val-cost-9348">30€</div>
               <p class="kpi-explanation-9348">
                 <i class="fas fa-info-circle"></i>
                 Dinero total invertido en anuncios
@@ -690,7 +810,7 @@
               </div>
             </div>
             <div>
-              <div class="kpi-value-9348" id="val-impressions-9348">45.120</div>
+              <div class="kpi-value-9348" id="val-impressions-9348">2.228</div>
               <p class="kpi-explanation-9348">
                 <i class="fas fa-info-circle"></i>
                 Número de veces que se mostraron los anuncios
@@ -707,7 +827,7 @@
               </div>
             </div>
             <div>
-              <div class="kpi-value-9348" id="val-ctr-9348">4,85%</div>
+              <div class="kpi-value-9348" id="val-ctr-9348">7,54%</div>
               <p class="kpi-explanation-9348">
                 <i class="fas fa-info-circle"></i>
                 Qué tan seguido la gente hace clic en su anuncio
@@ -724,7 +844,7 @@
               </div>
             </div>
             <div>
-              <div class="kpi-value-9348" id="val-cpc-9348">$0,57</div>
+              <div class="kpi-value-9348" id="val-cpc-9348">0,09€</div>
               <p class="kpi-explanation-9348">
                 <i class="fas fa-info-circle"></i>
                 Costo promedio por clic directo
@@ -749,7 +869,7 @@
         <section class="glossary-card-9348">
           <div class="glossary-header-9348">
             <i class="fas fa-heart"></i>
-            <h3>Decodificador de Jerga de Campaña</h3>
+            <h3>Decodificador de jerga</h3>
           </div>
           <div class="glossary-grid-9348">
             <div class="glossary-item-9348">
@@ -787,26 +907,33 @@
           </div>
         </section>
 
+        <!-- Discreet agency-only access link. Not styled as a button so it doesn't invite client clicks -->
+        <div class="agency-footer-row-9348">
+          <button class="agency-access-link-9348" id="agency-access-link-9348" type="button">
+            <i class="fas fa-lock" style="font-size: 0.68rem;"></i> Acceso agencia
+          </button>
+        </div>
+
       </main>
 
-      <!-- Right Panel: LIVE DATA INPUT FEED PANEL -->
-      <aside class="editor-sidebar-9348" id="editor-sidebar-9348">
+      <!-- Right Panel: LIVE DATA INPUT FEED PANEL (only rendered after login) -->
+      <aside class="editor-sidebar-9348 hidden-9348" id="editor-sidebar-9348">
         <div class="editor-header-9348">
           <h3 class="editor-title-9348">
             <i class="fas fa-database"></i>
             Editor de Datos
           </h3>
-          <span style="font-size: 0.75rem; color: var(--primary-9348); font-weight: 700; background-color: var(--primary-light-9348); padding: 4px 8px; border-radius: 4px;">Solo Vista de Agencia</span>
+          <span id="role-badge-9348" class="role-badge-9348 role-badge-admin-9348">Admin</span>
         </div>
-        
-        <p hidden style="font-size: 0.85rem; color: var(--neutral-muted-9348); margin-bottom: 20px; line-height: 1.4;">
-          Su cliente puede ver el panel de control pero no este editor de datos si está oculto. Ingrese las métricas en vivo a continuación para actualizar instantáneamente sus vistas de reporte.
+
+        <p style="font-size: 0.85rem; color: var(--neutral-muted-9348); margin-bottom: 20px; line-height: 1.4;">
+          Ingrese las métricas en vivo a continuación para actualizar instantáneamente las vistas del panel del cliente.
         </p>
 
         <form id="data-update-form-9348">
           <div class="form-group-9348">
-            <label class="form-label-9348" for="input-cost-9348">Costo de la Campaña ($)</label>
-            <input type="number" id="input-cost-9348" class="input-field-9348" step="0.01" value="1245.80" required="">
+            <label class="form-label-9348" for="input-cost-9348">Costo de la Campaña (€)</label>
+            <input type="number" id="input-cost-9348" class="input-field-9348" step="0.01" value="30.00" required="">
           </div>
 
           <div class="form-group-9348">
@@ -824,8 +951,8 @@
           </button>
         </form>
 
-        <!-- Dynamic Style modifier helper for testing color changes -->
-        <div hidden class="style-customizer-9348">
+        <!-- Dynamic Style modifier helper for testing color changes - superadmin only -->
+        <div class="hidden-9348 style-customizer-9348" id="style-customizer-9348">
           <label class="form-label-9348"><i class="fas fa-palette"></i> Cambiar Color Primario (Simulador CSS)</label>
           <p style="font-size: 0.75rem; color: var(--neutral-muted-9348); margin-bottom: 8px;">
             Elige un color para ver cómo se modifica dinámicamente la variable CSS <code>--primary-9348</code>:
@@ -836,15 +963,44 @@
           </div>
         </div>
 
-        <div hidden style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--neutral-border-9348); font-size: 0.8rem; color: var(--neutral-muted-9348);">
+        <div class="hidden-9348" id="calc-metrics-info-9348" style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--neutral-border-9348); font-size: 0.8rem; color: var(--neutral-muted-9348);">
           <div style="font-weight: 600; margin-bottom: 6px; color: var(--neutral-dark-9348);">Métricas calculadas mostradas al cliente:</div>
           <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px;">
             <li>CTR = (Clics / Impresiones) * 100</li>
             <li>CPC Prom. = Costo / Clics</li>
           </ul>
         </div>
+
+        <div style="margin-top: 20px; text-align: right;">
+          <button type="button" class="btn-logout-9348" id="btn-logout-9348">Cerrar sesión / Ocultar panel</button>
+        </div>
       </aside>
 
+    </div>
+
+    <!-- Login modal for agency access, hidden by default -->
+    <div class="auth-overlay-9348 hidden-9348" id="auth-overlay-9348">
+      <div class="auth-modal-9348">
+        <div class="auth-modal-header-9348">
+          <i class="fas fa-shield-alt" style="color: var(--primary-9348); font-size: 1.2rem;"></i>
+          <h3>Acceso de Agencia</h3>
+        </div>
+        <form id="auth-form-9348">
+          <div class="form-group-9348">
+            <label class="form-label-9348" for="auth-username-9348">Usuario</label>
+            <input type="text" id="auth-username-9348" class="input-field-9348" autocomplete="username" required>
+          </div>
+          <div class="form-group-9348">
+            <label class="form-label-9348" for="auth-password-9348">Contraseña</label>
+            <input type="password" id="auth-password-9348" class="input-field-9348" autocomplete="current-password" required>
+          </div>
+          <div class="auth-error-9348" id="auth-error-9348"></div>
+          <div class="auth-actions-9348">
+            <button type="button" class="btn-secondary-9348" id="auth-cancel-9348">Cancelar</button>
+            <button type="submit" class="btn-primary-inline-9348">Entrar</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- Live Toast notification element -->
@@ -857,11 +1013,26 @@
 
   <script>
     (function() {
+      // ---------------------------------------------------------------
+      // NOTE ON SECURITY: this is a purely client-side gate. It hides the
+      // editor from casual/non-technical users (like your client), but
+      // anyone who opens the browser dev tools or views the page source
+      // can find these credentials. Do not reuse these passwords
+      // elsewhere, and if you need real security, move the editor to a
+      // small backend with server-side auth. See chat notes for details.
+      // ---------------------------------------------------------------
+      const USERS_9348 = {
+        superadmin: { password: 'Sup3r$Admin2026', role: 'superadmin', label: 'Superadmin' },
+        admin: { password: 'Admin$2026', role: 'admin', label: 'Admin' }
+      };
+
+      const SESSION_KEY_9348 = 'campaignAgencyRole9348';
+
       // Internal State
       let state = {
-        cost: 1245.80,
-        impressions: 45120,
-        clicks: 2188,
+        cost: '30,00€',
+        impressions: '2200€',
+        clicks: '4,85%',
         weeklyTrendData: {
           labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
           cost: [120, 150, 180, 220, 250, 160, 165.8],
@@ -1030,27 +1201,82 @@
         liveChart.update();
       }
 
+      // -------------------- Auth / role-gating logic --------------------
+
+      function showEditorForRole(role) {
+        const sidebar = document.getElementById('editor-sidebar-9348');
+        const grid = document.getElementById('grid-container-9348');
+        const styleCustomizer = document.getElementById('style-customizer-9348');
+        const calcInfo = document.getElementById('calc-metrics-info-9348');
+        const roleBadge = document.getElementById('role-badge-9348');
+
+        sidebar.classList.remove('hidden-9348');
+        grid.classList.add('with-editor-9348');
+
+        const isSuperadmin = role === 'superadmin';
+        styleCustomizer.classList.toggle('hidden-9348', !isSuperadmin);
+        calcInfo.classList.toggle('hidden-9348', !isSuperadmin);
+
+        roleBadge.textContent = isSuperadmin ? 'Superadmin' : 'Admin';
+        roleBadge.classList.toggle('role-badge-superadmin-9348', isSuperadmin);
+        roleBadge.classList.toggle('role-badge-admin-9348', !isSuperadmin);
+      }
+
+      function hideEditor() {
+        const sidebar = document.getElementById('editor-sidebar-9348');
+        const grid = document.getElementById('grid-container-9348');
+        sidebar.classList.add('hidden-9348');
+        grid.classList.remove('with-editor-9348');
+        sessionStorage.removeItem(SESSION_KEY_9348);
+      }
+
+      function openAuthModal() {
+        document.getElementById('auth-overlay-9348').classList.remove('hidden-9348');
+        document.getElementById('auth-error-9348').textContent = '';
+        document.getElementById('auth-username-9348').value = '';
+        document.getElementById('auth-password-9348').value = '';
+        document.getElementById('auth-username-9348').focus();
+      }
+
+      function closeAuthModal() {
+        document.getElementById('auth-overlay-9348').classList.add('hidden-9348');
+      }
+
+      function attemptLogin(username, password) {
+        const record = USERS_9348[username.trim().toLowerCase()];
+        if (record && record.password === password) {
+          sessionStorage.setItem(SESSION_KEY_9348, record.role);
+          showEditorForRole(record.role);
+          closeAuthModal();
+          showToastNotification(`Sesión iniciada como ${record.label}`);
+          return true;
+        }
+        return false;
+      }
+
       // Setup Event Listeners
       function setupListeners() {
-        // Toggle Sidebar visibility for agency view configuration
-        const toggleBtn = document.getElementById('toggle-editor-btn-9348');
-        const sidebar = document.getElementById('editor-sidebar-9348');
-        
-        toggleBtn.addEventListener('click', () => {
-          sidebar.classList.toggle('hidden-9348');
-          const btnSpan = toggleBtn.querySelector('span');
-          if (sidebar.classList.contains('hidden-9348')) {
-            btnSpan.innerText = 'Mostrar Panel de Datos';
-          } else {
-            btnSpan.innerText = 'Ocultar Panel de Datos';
+        // Discreet agency access link opens the login modal
+        document.getElementById('agency-access-link-9348').addEventListener('click', openAuthModal);
+        document.getElementById('auth-cancel-9348').addEventListener('click', closeAuthModal);
+
+        document.getElementById('auth-form-9348').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const username = document.getElementById('auth-username-9348').value;
+          const password = document.getElementById('auth-password-9348').value;
+          const ok = attemptLogin(username, password);
+          if (!ok) {
+            document.getElementById('auth-error-9348').textContent = 'Usuario o contraseña incorrectos';
           }
         });
+
+        document.getElementById('btn-logout-9348').addEventListener('click', hideEditor);
 
         // Form Submission Event
         const form = document.getElementById('data-update-form-9348');
         form.addEventListener('submit', handleFormSubmission);
 
-        // Dynamic Interactive Live CSS Customizer (To teach "where to modify")
+        // Dynamic Interactive Live CSS Customizer (superadmin only, hidden for admin)
         const colorPicker = document.getElementById('primary-color-picker-9348');
         const hexLabel = document.getElementById('color-hex-label-9348');
         
@@ -1075,6 +1301,12 @@
         setupListeners();
         initLiveChart();
         updateClientDashboardView();
+
+        // Restore an existing agency session for this browser tab, if any
+        const savedRole = sessionStorage.getItem(SESSION_KEY_9348);
+        if (savedRole && USERS_9348[Object.keys(USERS_9348).find(k => USERS_9348[k].role === savedRole)]) {
+          showEditorForRole(savedRole);
+        }
       }
 
       if (document.readyState === 'complete' || document.readyState === 'interactive') {
