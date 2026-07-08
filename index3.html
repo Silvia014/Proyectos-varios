@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal en Vivo de Campañas del Cliente</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Variables CSS con sufijo -9348 */
+    :root {
+      --primary-9348: #4F46E5;
+      --primary-light-9348: #EEF2F6;
+      --primary-soft-9348: #EEF2FF;
+      --success-9348: #10B981;
+      --success-light-9348: #ECFDF5;
+      --warning-9348: #F59E0B;
+      --warning-light-9348: #FFFBEB;
+      --danger-9348: #EF4444;
+      --danger-light-9348: #FEF2F2;
+      --dark-9348: #0F172A;
+      --muted-9348: #64748B;
+      --light-9348: #F8FAFC;
+      --border-9348: #E2E8F0;
+      --white-9348: #FFFFFF;
+      --shadow-sm-9348: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md-9348: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg-9348: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --radius-sm-9348: 8px;
+      --radius-md-9348: 16px;
+      --radius-lg-9348: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Contenedor principal con consultas de contenedor (Container Queries) */
+    .dashboard-wrapper-9348 {
+      background-color: var(--light-9348);
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--dark-9348);
+      padding: 16px;
+      container-type: inline-size;
+      container-name: dashboard-container-9348;
+    }
+
+    @container dashboard-container-9348 (min-width: 768px) {
+      .dashboard-wrapper-9348 {
+        padding: 32px;
+      }
+    }
+
+    /* Cabecera del Dashboard sin posición fija */
+    .dashboard-header-9348 {
+      background-color: var(--white-9348);
+      border-radius: var(--radius-md-9348);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm-9348);
+      border: 1px solid var(--border-9348);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    @container dashboard-container-9348 (min-width: 768px) {
+      .dashboard-header-9348 {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .brand-group-9348 {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .status-badge-9348 {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: var(--success-light-9348);
+      color: var(--success-9348);
+      padding: 6px 12px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .status-dot-9348 {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--success-9348);
+      animation: pulse-9348 1.8s infinite;
+    }
+
+    @keyframes pulse-9348 {
+      0% { transform: scale(0.95); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.5; }
+    }
+
+    .brand-titles-9348 h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--dark-9348);
+    }
+
+    .brand-titles-9348 p {
+      font-size: 0.9rem;
+      color: var(--muted-9348);
+      margin-top: 2px;
+    }
+
+    /* Controles interactivos */
+    .header-actions-9348 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .timeframe-pill-group-9348 {
+      display: flex;
+      background-color: var(--light-9348);
+      border-radius: var(--radius-sm-9348);
+      padding: 4px;
+      border: 1px solid var(--border-9348);
+    }
+
+    .pill-btn-9348 {
+      background: transparent;
+      border: none;
+      color: var(--muted-9348);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm-9348);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .pill-btn-9348.active-9348 {
+      background-color: var(--white-9348);
+      color: var(--primary-9348);
+      box-shadow: var(--shadow-sm-9348);
+    }
+
+    .action-buttons-group-9348 {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sync-btn-9348 {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--white-9348);
+      color: var(--dark-9348);
+      border: 1px solid var(--border-9348);
+      padding: 12px 20px;
+      border-radius: var(--radius-sm-9348);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sync-btn-9348:hover {
+      background-color: var(--light-9348);
+      border-color: var(--muted-9348);
+    }
+
+    .sync-btn-9348 i.loading-active-9348 {
+      animation: spin-9348 1s linear infinite;
+    }
+
+    @keyframes spin-9348 {
+      100% { transform: rotate(360deg); }
+    }
+
+    .export-btn-9348 {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--primary-9348);
+      color: var(--white-9348);
+      padding: 12px 20px;
+      border-radius: var(--radius-sm-9348);
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .export-btn-9348:hover {
+      background-color: #4338CA;
+      transform: translateY(-1px);
+    }
+
+    /* Panel informativo sobre la actualización de datos */
+    .data-source-banner-9348 {
+      background-color: var(--primary-soft-9348);
+      border: 1px solid rgba(79, 70, 229, 0.15);
+      border-radius: var(--radius-sm-9348);
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+      color: var(--primary-9348);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    @container dashboard-container-9348 (min-width: 640px) {
+      .data-source-banner-9348 {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .data-source-banner-9348 .info-text-9348 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .data-source-banner-9348 .sync-timestamp-9348 {
+      font-weight: 700;
+      color: var(--dark-9348);
+      font-size: 0.8rem;
+    }
+
+    /* Bienvenida y resumen ejecutivo */
+    .welcome-insight-9348 {
+      background: linear-gradient(135deg, #4F46E5 0%, #312E81 100%);
+      color: var(--white-9348);
+      border-radius: var(--radius-md-9348);
+      padding: 24px;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      box-shadow: var(--shadow-md-9348);
+    }
+
+    @container dashboard-container-9348 (min-width: 768px) {
+      .welcome-insight-9348 {
+        grid-template-columns: 2fr 1fr;
+        align-items: center;
+      }
+    }
+
+    .welcome-text-9348 h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .welcome-text-9348 p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .welcome-badge-grid-9348 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .mini-badge-9348 {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 12px;
+      border-radius: var(--radius-sm-9348);
+      text-align: center;
+    }
+
+    .mini-badge-num-9348 {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .mini-badge-lbl-9348 {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      font-weight: 500;
+    }
+
+    /* Cuadrícula de Métricas */
+    .metrics-grid-9348 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @container dashboard-container-9348 (min-width: 480px) {
+      .metrics-grid-9348 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @container dashboard-container-9348 (min-width: 1024px) {
+      .metrics-grid-9348 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .metric-card-9348 {
+      background-color: var(--white-9348);
+      padding: 24px;
+      border-radius: var(--radius-md-9348);
+      border: 1px solid var(--border-9348);
+      box-shadow: var(--shadow-sm-9348);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .metric-card-9348:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md-9348);
+    }
+
+    .metric-header-9348 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .metric-title-9348 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--muted-9348);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric-icon-wrapper-9348 {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm-9348);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .icon-blue-9348 { background-color: #EFF6FF; color: #3B82F6; }
+    .icon-green-9348 { background-color: #ECFDF5; color: #10B981; }
+    .icon-amber-9348 { background-color: #FFFBEB; color: #F59E0B; }
+    .icon-indigo-9348 { background-color: #EEF2FF; color: #4F46E5; }
+
+    .metric-value-9348 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--dark-9348);
+      margin-bottom: 8px;
+    }
+
+    .metric-trend-9348 {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .trend-up-9348 { color: var(--success-9348); }
+    .trend-down-9348 { color: var(--danger-9348); }
+
+    .client-explainer-9348 {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-9348);
+      font-size: 0.78rem;
+      color: var(--muted-9348);
+      line-height: 1.4;
+    }
+
+    /* Diseño principal de la interfaz: Distribución en columnas */
+    .dashboard-layout-9348 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    @container dashboard-container-9348 (min-width: 1024px) {
+      .dashboard-layout-9348 {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+
+    /* Estructura de Tarjeta Estándar */
+    .card-9348 {
+      background-color: var(--white-9348);
+      border-radius: var(--radius-md-9348);
+      border: 1px solid var(--border-9348);
+      box-shadow: var(--shadow-sm-9348);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-header-9348 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .card-title-9348 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--dark-9348);
+    }
+
+    .card-subtitle-9348 {
+      font-size: 0.85rem;
+      color: var(--muted-9348);
+    }
+
+    /* Contenedor del Gráfico */
+    .chart-container-9348 {
+      position: relative;
+      height: 350px;
+      width: 100%;
+    }
+
+    /* Lista de Optimización (Feed Dinámico) */
+    .optimization-list-9348 {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .opt-item-9348 {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-9348);
+    }
+
+    .opt-item-9348:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .opt-icon-outer-9348 {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--primary-soft-9348);
+      color: var(--primary-9348);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .opt-content-9348 h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .opt-content-9348 p {
+      font-size: 0.82rem;
+      color: var(--muted-9348);
+      line-height: 1.4;
+    }
+
+    .opt-tag-9348 {
+      display: inline-block;
+      margin-top: 6px;
+      background-color: var(--success-light-9348);
+      color: var(--success-9348);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Panel de Notas / Feedback */
+    .note-panel-9348 {
+      background-color: var(--primary-soft-9348);
+      border: 1px dashed var(--primary-9348);
+      border-radius: var(--radius-md-9348);
+      padding: 20px;
+      margin-top: 24px;
+    }
+
+    .note-panel-header-9348 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .note-panel-header-9348 i {
+      color: var(--primary-9348);
+      font-size: 1.2rem;
+    }
+
+    .note-panel-header-9348 h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--dark-9348);
+    }
+
+    .note-textarea-9348 {
+      width: 100%;
+      min-height: 80px;
+      border: 1px solid var(--border-9348);
+      border-radius: var(--radius-sm-9348);
+      padding: 12px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      resize: vertical;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    .note-textarea-9348:focus {
+      border-color: var(--primary-9348);
+    }
+
+    .submit-note-btn-9348 {
+      background-color: var(--primary-9348);
+      color: var(--white-9348);
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm-9348);
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+
+    .submit-note-btn-9348:hover {
+      background-color: #4338CA;
+    }
+
+    /* Tabla de Campañas */
+    .table-section-9348 {
+      background-color: var(--white-9348);
+      border-radius: var(--radius-md-9348);
+      border: 1px solid var(--border-9348);
+      box-shadow: var(--shadow-sm-9348);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .table-container-9348 {
+      overflow-x: auto;
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background-color: var(--light-9348);
+      color: var(--muted-9348);
+      font-weight: 700;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-9348);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-9348);
+      color: var(--dark-9348);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .campaign-name-row-9348 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .campaign-tag-9348 {
+      background-color: var(--primary-soft-9348);
+      color: var(--primary-9348);
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* Barra de Indicador de Rendimiento */
+    .perf-bar-wrapper-9348 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .perf-bar-track-9348 {
+      flex-grow: 1;
+      height: 6px;
+      background-color: var(--border-9348);
+      border-radius: 3px;
+      overflow: hidden;
+      width: 80px;
+    }
+
+    .perf-bar-fill-9348 {
+      height: 100%;
+      background-color: var(--success-9348);
+      border-radius: 3px;
+    }
+
+    /* Notificación emergente (Toast) */
+    .success-toast-9348 {
+      display: none;
+      background-color: var(--dark-9348);
+      color: var(--white-9348);
+      padding: 12px 24px;
+      border-radius: var(--radius-sm-9348);
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      z-index: 999;
+      box-shadow: var(--shadow-lg-9348);
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Tarjeta del Gestor de Cuenta */
+    .manager-card-9348 {
+      background-color: var(--white-9348);
+      border-radius: var(--radius-md-9348);
+      border: 1px solid var(--border-9348);
+      box-shadow: var(--shadow-sm-9348);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .manager-avatar-9348 {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 16px;
+      border: 3px solid var(--primary-soft-9348);
+    }
+
+    .manager-name-9348 {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--dark-9348);
+    }
+
+    .manager-role-9348 {
+      font-size: 0.8rem;
+      color: var(--muted-9348);
+      margin-bottom: 16px;
+    }
+
+    .contact-button-9348 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background-color: var(--light-9348);
+      color: var(--dark-9348);
+      padding: 12px;
+      border-radius: var(--radius-sm-9348);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid var(--border-9348);
+      transition: all 0.2s;
+    }
+
+    .contact-button-9348:hover {
+      background-color: var(--border-9348);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Contenedor general del dashboard con clases de sufijo -9348 -->
+  <div class="dashboard-wrapper-9348">
+    
+    <!-- Encabezado del Dashboard -->
+    <header class="dashboard-header-9348">
+      <div class="brand-group-9348">
+        <div class="status-badge-9348">
+          <span class="status-dot-9348"></span> Vista en Vivo
+        </div>
+        <div class="brand-titles-9348">
+          <h1 id="account-name-9348">Dashboard Veneno Tattoo</h1>
+          <p>Tus métricas de rendimiento de Google Ads explicadas de forma sencilla y clara.</p>
+        </div>
+      </div>
+
+      <div class="header-actions-9348">
+        <div class="timeframe-pill-group-9348" role="group" aria-label="Seleccionar rango de fechas">
+          <button class="pill-btn-9348" onclick="changeDateRange('30')">Últimos 30 días</button>
+          <button class="pill-btn-9348" onclick="changeDateRange('7')">Últimos 7 días</button>
+          <button class="pill-btn-9348 active-9348" onclick="changeDateRange('this-month')">Este Mes</button>
+        </div>
+        <div class="action-buttons-group-9348">
+          <button class="sync-btn-9348" onclick="triggerManualSync()" title="Sincronizar datos con la API de Google Ads">
+            <i id="sync-icon-9348" class="fas fa-sync-alt"></i> Actualizar
+          </button>
+          <button class="export-btn-9348" onclick="triggerMockExport()">
+            <i class="fas fa-file-pdf"></i> Guardar Reporte
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Información de Sincronización y Origen de Datos -->
+    <div class="data-source-banner-9348">
+      <div class="info-text-9348">
+        <i class="fas fa-database"></i>
+        <span>Los datos provienen directamente de la API Oficial de Google Ads mediante una sincronización en la nube.</span>
+      </div>
+      <div>
+        <span>Última sincronización: </span>
+        <span id="sync-timestamp-9348" class="sync-timestamp-9348">Hace un momento (Simulado)</span>
+      </div>
+    </div>
+
+    <!-- Sección de Información de Bienvenida y Resumen Ejecutivo -->
+    <div class="welcome-insight-9348">
+      <div class="welcome-text-9348">
+        <h2>¡Tus anuncios están rindiendo de maravilla!</h2>
+        <p>Este mes nos enfocamos en términos de búsqueda altamente relevantes para los productos de tu negocio. Conseguimos más clics con un costo promedio menor comparado con periodos anteriores. La calidad general de la conversión ha aumentado, optimizando eficientemente tu presupuesto.</p>
+      </div>
+      <div class="welcome-badge-grid-9348">
+        <div class="mini-badge-9348">
+          <span class="mini-badge-num-9348" id="mini-leads-9348">462</span>
+          <span class="mini-badge-lbl-9348">Conversiones Totales</span>
+        </div>
+        <div class="mini-badge-9348">
+          <span class="mini-badge-num-9348" id="mini-roi-9348">4.3x</span>
+          <span class="mini-badge-lbl-9348">Retorno Estimado (ROI)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cuadrícula de Tarjetas de Métricas -->
+    <section class="metrics-grid-9348">
+      <!-- Costo Total -->
+      <article class="metric-card-9348">
+        <div class="metric-header-9348">
+          <span class="metric-title-9348">Presupuesto Gastado</span>
+          <div class="metric-icon-wrapper-9348 icon-blue-9348">
+            <i class="fas fa-wallet"></i>
+          </div>
+        </div>
+        <div>
+          <div class="metric-value-9348" id="metric-cost-9348">$2.450,00</div>
+          <div class="metric-trend-9348 trend-down-9348"><i class="fas fa-arrow-down"></i> 8.4% optimización</div>
+        </div>
+        <div class="client-explainer-9348">
+          La inversión acumulada total en tus anuncios durante el periodo seleccionado.
+        </div>
+      </article>
+
+      <!-- Impresiones -->
+      <article class="metric-card-9348">
+        <div class="metric-header-9348">
+          <span class="metric-title-9348">Vistas del Anuncio (Impresiones)</span>
+          <div class="metric-icon-wrapper-9348 icon-amber-9348">
+            <i class="fas fa-eye"></i>
+          </div>
+        </div>
+        <div>
+          <div class="metric-value-9348" id="metric-impressions-9348">61.800</div>
+          <div class="metric-trend-9348 trend-up-9348"><i class="fas fa-arrow-up"></i> 15.2% más alcance</div>
+        </div>
+        <div class="client-explainer-9348">
+          Cuántas veces se mostró tu publicidad en las plataformas de Google.
+        </div>
+      </article>
+
+      <!-- CTR -->
+      <article class="metric-card-9348">
+        <div class="metric-header-9348">
+          <span class="metric-title-9348">Tasa de Interés (CTR)</span>
+          <div class="metric-icon-wrapper-9348 icon-indigo-9348">
+            <i class="fas fa-percentage"></i>
+          </div>
+        </div>
+        <div>
+          <div class="metric-value-9348" id="metric-ctr-9348">6,95%</div>
+          <div class="metric-trend-9348 trend-up-9348"><i class="fas fa-arrow-up"></i> 1.9% mayor interés</div>
+        </div>
+        <div class="client-explainer-9348">
+          El porcentaje de vistas que resultaron en un clic real hacia tu sitio web.
+        </div>
+      </article>
+
+      <!-- CPC -->
+      <article class="metric-card-9348">
+        <div class="metric-header-9348">
+          <span class="metric-title-9348">Costo por Visitante (CPC)</span>
+          <div class="metric-icon-wrapper-9348 icon-green-9348">
+            <i class="fas fa-hand-pointer"></i>
+          </div>
+        </div>
+        <div>
+          <div class="metric-value-9348" id="metric-cpc-9348">$0,41</div>
+          <div class="metric-trend-9348 trend-down-9348"><i class="fas fa-arrow-down"></i> 9.3% clics más baratos</div>
+        </div>
+        <div class="client-explainer-9348">
+          El costo promedio que cobra Google por cada visitante enviado a tu web.
+        </div>
+      </article>
+    </section>
+
+    <!-- Sección Media: Gráfico de Crecimiento & Columna Lateral -->
+    <div class="dashboard-layout-9348">
+      <!-- Área del Gráfico Interactivo -->
+      <section class="card-9348">
+        <div class="card-header-9348">
+          <div>
+            <h3 class="card-title-9348">Crecimiento de Visitantes y Presupuesto</h3>
+            <span class="card-subtitle-9348">Evolución diaria de clics conseguidos y presupuesto acumulado</span>
+          </div>
+        </div>
+        <div class="chart-container-9348">
+          <canvas id="client-growth-chart-9348"></canvas>
+        </div>
+      </section>
+
+      <!-- Barra Lateral del Gestor de Cuenta y Tareas en Progreso -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <article class="manager-card-9348">
+          <h3 class="manager-name-9348">Silvia Guerra</h3>
+          <p class="manager-role-9348">Gestora de Campañas</p>
+          <a href="mailto:roldansilvi@gmail.com" class="contact-button-9348">
+            <i class="far fa-envelope"></i> Hacer una Pregunta
+          </a>
+        </article>
+
+        <section class="card-9348">
+          <div class="card-header-9348" style="margin-bottom: 16px;">
+            <div>
+              <h3 class="card-title-9348">¿Qué estamos optimizando?</h3>
+              <span class="card-subtitle-9348">Trabajo activo realizado tras bambalinas</span>
+            </div>
+          </div>
+          <div class="optimization-list-9348">
+            <div class="opt-item-9348">
+              <div class="opt-icon-outer-9348">
+                <i class="fas fa-search-plus"></i>
+              </div>
+              <div class="opt-content-9348">
+                <h4>Depuración de Palabras Clave</h4>
+                <p>Eliminamos 24 términos no rentables para enfocar el presupuesto en búsquedas con intención de compra real.</p>
+                <span class="opt-tag-9348">Completado ayer</span>
+              </div>
+            </div>
+
+            <div class="opt-item-9348">
+              <div class="opt-icon-outer-9348">
+                <i class="fas fa-ad"></i>
+              </div>
+              <div class="opt-content-9348">
+                <h4>Pruebas A/B en Textos Creativos</h4>
+                <p>Introdujimos 3 nuevos títulos estructurados que destacan la oferta de prueba gratuita.</p>
+                <span class="opt-tag-9348">En Progreso</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentarios directos con tu gestora -->
+          <div class="note-panel-9348">
+            <div class="note-panel-header-9348">
+              <i class="far fa-comment-dots"></i>
+              <h4>Escribir nota para Silvia</h4>
+            </div>
+            <textarea id="feedback-textbox-9348" class="note-textarea-9348" placeholder="Ej. 'Tendremos una promoción la próxima semana, ¿deberíamos subir el presupuesto?'"></textarea>
+            <button class="submit-note-btn-9348" onclick="sendManagerFeedback()">Enviar nota a Silvia</button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Tabla de Desglose de Campañas -->
+    <section class="table-section-9348">
+      <div class="card-header-9348" style="margin-bottom: 8px;">
+        <div>
+          <h3 class="card-title-9348">Rendimiento Detallado por Campaña</h3>
+          <span class="card-subtitle-9348">Desglose simplificado de tus diferentes categorías activas de anuncios</span>
+        </div>
+      </div>
+      <div class="table-container-9348">
+        <table>
+          <thead>
+            <tr>
+              <th>Tema de la Campaña</th>
+              <th>Estado</th>
+              <th>Presupuesto Invertido</th>
+              <th>Visitas al Sitio</th>
+              <th>Costo por Visita</th>
+              <th>Indicador de Rendimiento</th>
+            </tr>
+          </thead>
+          <tbody id="campaign-rows-container-9348">
+            <!-- Rellenado dinámicamente mediante javascript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Sistema de Notificaciones Flotantes (Toast) -->
+  <div id="toast-notif-9348" class="success-toast-9348">
+    <i class="fas fa-check-circle" style="color: var(--success-9348);"></i>
+    <span id="toast-message-9348">¡Mensaje enviado con éxito!</span>
+  </div>
+
+  <script>
+    (function() {
+      // Base de datos de simulación interactiva
+      const dataStore = {
+        '30': {
+          cost: '$1.840,00',
+          impressions: '45.200',
+          ctr: '6,82%',
+          cpc: '$0,42',
+          leads: '340',
+          roi: '4.2x',
+          trendCost: '4.3% menos gasto',
+          trendCostDir: 'down',
+          trendImp: '12.1% incremento de vistas',
+          trendImpDir: 'up',
+          trendCtr: '1.4% mayor conversión',
+          trendCtrDir: 'up',
+          trendCpc: '8.5% ahorro de clics',
+          trendCpcDir: 'down',
+          chartLabels: ['Día 5', 'Día 10', 'Día 15', 'Día 20', 'Día 25', 'Día 30'],
+          chartClicks: [210, 480, 520, 890, 1100, 1480],
+          chartCost: [150, 240, 450, 680, 1100, 1840],
+          campaigns: [
+            { name: 'Búsqueda - Captación Clientes Core', type: 'Búsqueda', cost: '$1.040,00', visits: '2.476', cpc: '$0,42', bar: '90%', desc: 'Excelente' },
+            { name: 'Display - Remarketing y Alcance de Marca', type: 'Display', cost: '$500,00', visits: '1.190', cpc: '$0,42', bar: '75%', desc: 'Muy Bueno' },
+            { name: 'Performance Max - Oferta Especial', type: 'Shopping', cost: '$300,00', visits: '714', cpc: '$0,42', bar: '60%', desc: 'En Mejora' }
+          ]
+        },
+        '7': {
+          cost: '$480,00',
+          impressions: '11.400',
+          ctr: '7,10%',
+          cpc: '$0,39',
+          leads: '92',
+          roi: '4.5x',
+          trendCost: '2.1% optimizado',
+          trendCostDir: 'down',
+          trendImp: '6.8% más exposición',
+          trendImpDir: 'up',
+          trendCtr: '2.3% interés superior',
+          trendCtrDir: 'up',
+          trendCpc: '11.2% ahorro por clic',
+          trendCpcDir: 'down',
+          chartLabels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+          chartClicks: [80, 140, 230, 310, 420, 490, 580],
+          chartCost: [60, 110, 180, 240, 310, 400, 480],
+          campaigns: [
+            { name: 'Búsqueda - Captación Clientes Core', type: 'Búsqueda', cost: '$280,00', visits: '718', cpc: '$0,39', bar: '95%', desc: 'Excelente' },
+            { name: 'Display - Remarketing y Alcance de Marca', type: 'Display', cost: '$120,00', visits: '307', cpc: '$0,39', bar: '80%', desc: 'Muy Bueno' },
+            { name: 'Performance Max - Oferta Especial', type: 'Shopping', cost: '$80,00', visits: '205', cpc: '$0,39', bar: '65%', desc: 'En Mejora' }
+          ]
+        },
+        'this-month': {
+          cost: '$2.450,00',
+          impressions: '61.800',
+          ctr: '6,95%',
+          cpc: '$0,41',
+          leads: '462',
+          roi: '4.3x',
+          trendCost: '8.4% ahorro óptimo',
+          trendCostDir: 'down',
+          trendImp: '15.2% salto de tráfico',
+          trendImpDir: 'up',
+          trendCtr: '1.9% mejor interacción',
+          trendCtrDir: 'up',
+          trendCpc: '9.3% reducción de costo',
+          trendCpcDir: 'down',
+          chartLabels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+          chartClicks: [320, 780, 1250, 1890],
+          chartCost: [410, 890, 1620, 2450],
+          campaigns: [
+            { name: 'Búsqueda - Captación Clientes Core', type: 'Búsqueda', cost: '$1.350,00', visits: '3.292', cpc: '$0,41', bar: '92%', desc: 'Excelente' },
+            { name: 'Display - Remarketing y Alcance de Marca', type: 'Display', cost: '$700,00', visits: '1.707', cpc: '$0,41', bar: '78%', desc: 'Muy Bueno' },
+            { name: 'Performance Max - Oferta Especial', type: 'Shopping', cost: '$400,00', visits: '975', cpc: '$0,41', bar: '62%', desc: 'En Mejora' }
+          ]
+        }
+      };
+
+      let currentChartObj = null;
+      let activeRange = 'this-month';
+
+      // Función para inicializar y actualizar el gráfico dinámico usando ChartJS
+      function buildChart(labels, clicksData, costData) {
+        const canvas = document.getElementById('client-growth-chart-9348');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (currentChartObj) {
+          currentChartObj.destroy();
+        }
+
+        const gradientPrimary = ctx.createLinearGradient(0, 0, 0, 320);
+        gradientPrimary.addColorStop(0, 'rgba(79, 70, 229, 0.45)');
+        gradientPrimary.addColorStop(1, 'rgba(79, 70, 229, 0)');
+
+        currentChartObj = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Clics en Anuncios',
+                data: clicksData,
+                borderColor: '#4F46E5',
+                borderWidth: 3,
+                backgroundColor: gradientPrimary,
+                fill: true,
+                tension: 0.38,
+                pointRadius: 4,
+                pointBackgroundColor: '#4F46E5',
+                yAxisID: 'y'
+              },
+              {
+                label: 'Inversión Acumulada ($)',
+                data: costData,
+                borderColor: '#10B981',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                backgroundColor: 'transparent',
+                fill: false,
+                tension: 0.2,
+                pointRadius: 0,
+                yAxisID: 'y1'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: {
+                  boxWidth: 12,
+                  font: { family: 'Plus Jakarta Sans', weight: '700', size: 12 },
+                  color: '#0F172A'
+                }
+              }
+            },
+            scales: {
+              y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                grid: { color: '#E2E8F0' },
+                ticks: { color: '#64748B', font: { family: 'Plus Jakarta Sans' } }
+              },
+              y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                grid: { drawOnChartArea: false },
+                ticks: { color: '#64748B', font: { family: 'Plus Jakarta Sans' } }
+              },
+              x: {
+                grid: { display: false },
+                ticks: { color: '#64748B', font: { family: 'Plus Jakarta Sans' } }
+              }
+            }
+          }
+        });
+      }
+
+      // Cambiar de forma dinámica el rango de fechas seleccionado
+      window.changeDateRange = function(rangeKey) {
+        activeRange = rangeKey;
+        const buttons = document.querySelectorAll('.pill-btn-9348');
+        buttons.forEach(btn => btn.classList.remove('active-9348'));
+        
+        const activeBtn = Array.from(buttons).find(btn => btn.outerHTML.includes(`changeDateRange('${rangeKey}')`));
+        if (activeBtn) {
+          activeBtn.classList.add('active-9348');
+        }
+
+        const dataSet = dataStore[rangeKey];
+        if (!dataSet) return;
+
+        updateUIPanel(dataSet);
+      };
+
+      // Helper para actualizar los elementos visuales de la interfaz
+      function updateUIPanel(dataSet) {
+        document.getElementById('metric-cost-9348').innerText = dataSet.cost;
+        document.getElementById('metric-impressions-9348').innerText = dataSet.impressions;
+        document.getElementById('metric-ctr-9348').innerText = dataSet.ctr;
+        document.getElementById('metric-cpc-9348').innerText = dataSet.cpc;
+        document.getElementById('mini-leads-9348').innerText = dataSet.leads;
+        document.getElementById('mini-roi-9348').innerText = dataSet.roi;
+
+        // Actualizar tendencias de costo
+        const costTrend = document.getElementById('metric-cost-9348').nextElementSibling;
+        costTrend.className = `metric-trend-9348 trend-${dataSet.trendCostDir}-9348`;
+        costTrend.innerHTML = `<i class="fas fa-arrow-${dataSet.trendCostDir === 'up' ? 'up' : 'down'}"></i> ${dataSet.trendCost}`;
+
+        // Actualizar tendencias de impresiones
+        const impTrend = document.getElementById('metric-impressions-9348').nextElementSibling;
+        impTrend.className = `metric-trend-9348 trend-${dataSet.trendImpDir}-9348`;
+        impTrend.innerHTML = `<i class="fas fa-arrow-${dataSet.trendImpDir === 'up' ? 'up' : 'down'}"></i> ${dataSet.trendImp}`;
+
+        // Actualizar tendencias de CTR
+        const ctrTrend = document.getElementById('metric-ctr-9348').nextElementSibling;
+        ctrTrend.className = `metric-trend-9348 trend-${dataSet.trendCtrDir}-9348`;
+        ctrTrend.innerHTML = `<i class="fas fa-arrow-${dataSet.trendCtrDir === 'up' ? 'up' : 'down'}"></i> ${dataSet.trendCtr}`;
+
+        // Actualizar tendencias de CPC
+        const cpcTrend = document.getElementById('metric-cpc-9348').nextElementSibling;
+        cpcTrend.className = `metric-trend-9348 trend-${dataSet.trendCpcDir}-9348`;
+        cpcTrend.innerHTML = `<i class="fas fa-arrow-${dataSet.trendCpcDir === 'up' ? 'up' : 'down'}"></i> ${dataSet.trendCpc}`;
+
+        // Regenerar tabla de campañas de forma dinámica
+        const tableBody = document.getElementById('campaign-rows-container-9348');
+        tableBody.innerHTML = '';
+        dataSet.campaigns.forEach(campaign => {
+          const ratingColor = campaign.desc === 'Excelente' || campaign.desc === 'Muy Bueno' ? 'var(--success-9348)' : 'var(--warning-9348)';
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>
+              <div class="campaign-name-row-9348">
+                ${campaign.name}
+                <span class="campaign-tag-9348">${campaign.type}</span>
+              </div>
+            </td>
+            <td><span class="status-badge-9348"><span class="status-dot-9348"></span> Activo</span></td>
+            <td>${campaign.cost}</td>
+            <td>${campaign.visits}</td>
+            <td>${campaign.cpc}</td>
+            <td>
+              <div class="perf-bar-wrapper-9348">
+                <div class="perf-bar-track-9348">
+                  <div class="perf-bar-fill-9348" style="width: ${campaign.bar}; background-color: ${ratingColor}"></div>
+                </div>
+                <span style="font-size: 0.8rem; font-weight: 700; color: ${ratingColor};">${campaign.desc}</span>
+              </div>
+            </td>
+          `;
+          tableBody.appendChild(tr);
+        });
+
+        // Regenerar gráfico lineal
+        buildChart(dataSet.chartLabels, dataSet.chartClicks, dataSet.chartCost);
+      }
+
+      // ¿Cómo se actualizan los datos? -> Esta función simula la llamada y sincronización en vivo de la API de Google Ads
+      window.triggerManualSync = function() {
+        const syncIcon = document.getElementById('sync-icon-9348');
+        syncIcon.classList.add('loading-active-9348');
+        
+        triggerToast('Sincronizando con Google Ads API...');
+
+        setTimeout(() => {
+          syncIcon.classList.remove('loading-active-9348');
+          
+          // Generamos ligeros cambios o fluctuaciones aleatorias simulando datos reales capturados al instante
+          const dataSet = dataStore[activeRange];
+          if (dataSet) {
+            // Modificación simulada en tiempo real de clics para demostrar que los datos son dinámicos
+            const length = dataSet.chartClicks.length;
+            if (length > 0) {
+              dataSet.chartClicks[length - 1] += Math.floor(Math.random() * 12) + 1; // Incremento aleatorio
+            }
+            updateUIPanel(dataSet);
+          }
+
+          // Actualizar estampa de tiempo
+          const now = new Date();
+          const formatTime = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          document.getElementById('sync-timestamp-9348').innerText = `Hoy a las ${formatTime} (Conexión Estableciéndose)`;
+
+          triggerToast('¡Datos de Google Ads actualizados con éxito!');
+        }, 1500);
+      };
+
+      // Sistema auxiliar para mostrar notificaciones flotantes (Toast)
+      function triggerToast(message) {
+        const toast = document.getElementById('toast-notif-9348');
+        const toastMsg = document.getElementById('toast-message-9348');
+        toastMsg.innerText = message;
+        toast.style.display = 'flex';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 4000);
+      }
+
+      // Enviar notas y feedback al gestor
+      window.sendManagerFeedback = function() {
+        const textVal = document.getElementById('feedback-textbox-9348').value;
+        if (!textVal.trim()) {
+          triggerToast('Por favor, escribe una pregunta o comentario primero.');
+          return;
+        }
+        document.getElementById('feedback-textbox-9348').value = '';
+        triggerToast('¡Mensaje enviado a Silvia!');
+      };
+
+      // Exportar archivo PDF simulado
+      window.triggerMockExport = function() {
+        triggerToast('Preparando descarga en formato PDF... ¡Listo en unos segundos!');
+      };
+
+      // Configuración inicial del portal al cargar
+      const initApp = () => {
+        const now = new Date();
+        const formatTime = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('sync-timestamp-9348').innerText = `Sincronizado hoy a las ${formatTime}`;
+        changeDateRange('this-month');
+      };
+
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        initApp();
+      } else {
+        document.addEventListener('DOMContentLoaded', initApp);
+      }
+
+    })();
+  </script>
+</body>
+</html>
