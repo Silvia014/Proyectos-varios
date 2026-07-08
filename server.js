@@ -1,3 +1,5 @@
+console.log("🚀 Starting server...");
+require('dotenv').config(); 
 const express = require('express');
 const path = require('path');
 const { google } = require('googleapis');
@@ -6,9 +8,9 @@ const app = express();
 
 // 🔐 OAuth config
 const oauth2Client = new google.auth.OAuth2(
-  "638289685605-3la42bch28cefa796lln2lhdri85l75s.apps.googleusercontent.com",
-  "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",
-  "http://localhost:3000/auth/callback" // ✅ SIN []
+  process.env.CLIENT_ID,
+  process.env.CLIENT_SECRET,
+  process.env.REDIRECT_URI
 );
 
 // 🌐 Servir HTML
@@ -16,12 +18,14 @@ app.use(express.static(__dirname));
 
 // 🚀 Ruta login
 app.get('/auth', (req, res) => {
+  console.log("🔑 Iniciando autenticación con Google...");
+
   const url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     prompt: 'consent',
-    scope: [
+    scope: 
       'https://www.googleapis.com/auth/analytics.readonly' // ✅ SIN []
-    ],
+    ,
   });
 
   console.log("➡️ Redirigiendo a Google...");
@@ -46,7 +50,13 @@ app.get('/auth/callback', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index2.html');
+});
+
 // ▶️ Servidor
 app.listen(3000, () => {
   console.log('Servidor corriendo en http://localhost:3000');
 });
+
+console.log(process.env.CLIENT_ID);
