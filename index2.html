@@ -375,20 +375,29 @@
       font-size: 1.1rem;
     }
 
-    .icon-spend-9348 { background-color: var(--primary-light-9348); color: var(--primary-9348); transition: background-color 0.3s ease, color 0.3s ease; }
-    .icon-impressions-9348 { background-color: var(--info-light-9348); color: var(--info-9348); }
-    .icon-ctr-9348 { background-color: var(--warning-light-9348); color: var(--warning-9348); }
-    .icon-cpc-9348 { background-color: var(--success-light-9348); color: var(--success-9348); }
+    /* Dropdown */
+    #mes {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background: var(--primary-9348);
+    color: var(--white-9348);
+    border: none;
+    border-radius: var(--radius-md-9348);
+    font-family: var(--font-body-9348);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s ease;
+    box-shadow: var(--shadow-sm-9348);
+}
 
-    .kpi-value-9348 {
-      font-family: var(--font-display-9348);
-      font-size: 1.85rem;
-      font-weight: 800;
-      color: var(--neutral-dark-9348);
-      margin-bottom: 6px;
-      letter-spacing: -0.02em;
-    }
-
+#mes:hover {
+    background: #4338CA;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg-9348);
+}
+        
     /* Jargon Translator Tooltip block under KPI values */
     .kpi-explanation-9348 {
       font-size: 0.78rem;
@@ -780,7 +789,26 @@
             Aquí tiene una vista simplificada del rendimiento de su campaña publicitaria en Google. Sin terminología técnica confusa, solo métricas de éxito claras y transparentes actualizadas en vivo.
           </p>
         </section>
+        <!-- Dropdown -->
+         <label for="mes">Selecciona un mes:</label>
 
+          <select id="mes" name="mes">
+            <option value="">-- Elige un mes --</option>
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+           </select>
+
+           <button id="mes">Aceptar</button>
         <!-- KPI Grid with explanatory content -->
         <section class="kpi-grid-9348">
           
@@ -952,7 +980,7 @@
         </form>
 
         <!-- Dynamic Style modifier helper for testing color changes - superadmin only -->
-        <div class="hidden-9348 style-customizer-9348" id="style-customizer-9348">
+        <div hidden class="hidden-9348 style-customizer-9348" id="style-customizer-9348">
           <label class="form-label-9348"><i class="fas fa-palette"></i> Cambiar Color Primario (Simulador CSS)</label>
           <p style="font-size: 0.75rem; color: var(--neutral-muted-9348); margin-bottom: 8px;">
             Elige un color para ver cómo se modifica dinámicamente la variable CSS <code>--primary-9348</code>:
@@ -1030,18 +1058,37 @@
 
       // Internal State
       let state = {
-        cost: '30,00€',
-        impressions: '2200€',
-        clicks: '4,85%',
+        cost: 30.00,
+        impressions: 2200,
+        clicks: 170,
         weeklyTrendData: {
-          labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-          cost: [120, 150, 180, 220, 250, 160, 165.8],
-          clicks: [190, 220, 280, 310, 340, 420, 428]
+          labels: ['Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          cost: [0, 20, 50, 80, 100, 140, 180, 200],
+          clicks: [130, 160, 220, 280, 350, 480, 600, 700, 800, 900, 1000, 1100, 1200, 1300]
         }
       };
 
       let liveChart = null;
+      //DROPDOWM
+    document.getElementById("mes").addEventListener("change", cargarDatos);
 
+     async function cargarDatos() {
+
+     const mes = document.getElementById("mes").value;
+
+       if (!mes) return;
+
+        const respuesta = await fetch("datos.php?mes=" + mes);
+
+        const datos = await respuesta.json();
+
+    document.getElementById("impresiones").textContent = datos.impresiones;
+    document.getElementById("clics").textContent = datos.clics;
+    document.getElementById("conversiones").textContent = datos.conversiones;
+    document.getElementById("coste").textContent = datos.coste + " €";
+     }
+    
+      
       // Calculate Derived Metrics
       function calculateCTR(clicks, impressions) {
         if (!impressions) return 0;
@@ -1127,7 +1174,7 @@
             labels: state.weeklyTrendData.labels,
             datasets: [
               {
-                label: 'Inversión publicitaria ($)',
+                label: 'Inversión publicitaria (€)',
                 data: state.weeklyTrendData.cost,
                 borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary-9348').trim() || '#4F46E5',
                 backgroundColor: 'rgba(79, 70, 229, 0.05)',
@@ -1173,7 +1220,7 @@
                 },
                 ticks: {
                   color: '#4F46E5',
-                  callback: function(value) { return '$' + value; }
+                  callback: function(value) { return '€' + value; }
                 }
               },
               y1: {
