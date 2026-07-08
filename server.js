@@ -23,9 +23,9 @@ app.get('/auth', (req, res) => {
   const url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     prompt: 'consent',
-    scope: 
-      'https://www.googleapis.com/auth/analytics.readonly' // ✅ SIN []
-    ,
+    scope: [
+      'https://www.googleapis.com/auth/analytics.readonly'
+    ],
   });
 
   console.log("➡️ Redirigiendo a Google...");
@@ -42,8 +42,7 @@ app.get('/auth/callback', async (req, res) => {
 
     console.log("🔥 TOKENS:");
     console.log(tokens);
-
-    res.send('✅ Login correcto, revisa la consola');
+    res.redirect('/');
   } catch (error) {
     console.error(error);
     res.send('❌ Error en autenticación');
@@ -59,4 +58,3 @@ app.listen(3000, () => {
   console.log('Servidor corriendo en http://localhost:3000');
 });
 
-console.log(process.env.CLIENT_ID);
