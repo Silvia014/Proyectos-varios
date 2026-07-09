@@ -1,24 +1,20 @@
-console.log("🚀 Starting server...");
-require('dotenv').config(); 
+console.log("🔥 ESTE ARCHIVO SE ESTÁ EJECUTANDO");
+require('dotenv').config();
 const express = require('express');
-const path = require('path');
 const { google } = require('googleapis');
 
 const app = express();
 
-// 🔐 OAuth config
 const oauth2Client = new google.auth.OAuth2(
   process.env.CLIENT_ID,
   process.env.CLIENT_SECRET,
   process.env.REDIRECT_URI
 );
+ console.log("REDIRECT_URI usada:", process.env.REDIRECT_URI);
 
-// 🌐 Servir HTML
-app.use(express.static(__dirname));
-
-// 🚀 Ruta login
+// 🔐 LOGIN
 app.get('/auth', (req, res) => {
-  console.log("🔑 Iniciando autenticación con Google...");
+  console.log("🚀 ENTRÓ AL AUTH DEL PUERTO 4000");
 
   const url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
@@ -28,33 +24,28 @@ app.get('/auth', (req, res) => {
     ],
   });
 
-  console.log("➡️ Redirigiendo a Google...");
+  console.log("URL GENERADA:");
+  console.log(url);
+
   res.redirect(url);
 });
 
-// 🔁 Callback
+// CALLBACK
 app.get('/auth/callback', async (req, res) => {
-  try {
-    const code = req.query.code;
+  const code = req.query.code;
 
-    const { tokens } = await oauth2Client.getToken(code);
-    oauth2Client.setCredentials(tokens);
+  const { tokens } = await oauth2Client.getToken(code);
+  oauth2Client.setCredentials(tokens);
 
-    console.log("🔥 TOKENS:");
-    console.log(tokens);
-    res.redirect('/');
-  } catch (error) {
-    console.error(error);
-    res.send('❌ Error en autenticación');
-  }
+  console.log(tokens);
+  res.send('Login OK');
 });
 
+// ROOT
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index2.html');
+  res.send('Servidor funcionando');
 });
 
-// ▶️ Servidor
-app.listen(3000, () => {
-  console.log('Servidor corriendo en http://localhost:3000');
+app.listen(4000, () => {
+  console.log('🔥 MI SERVER en http://localhost:4000');
 });
-
