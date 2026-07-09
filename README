@@ -1,0 +1,35 @@
+Se crean dos paginas webs como modelo - frontend 
+Se crea una API para devolver a través del GA4 los siguientes KPIS:
+/api/dashboard
+    ├── /kpis
+    ├── /traffic
+    ├── /channels
+    ├── /pages
+    ├── /events
+    ├── /devices
+    ├── /countries
+    ├── /browsers
+    ├── /sources
+    ├── /realtime
+    └── /conversions
+
+  server.js
+
+routes/
+    analytics.js
+
+services/
+    ga4.js
+
+controllers/
+    analyticsController.js
+
+    Funcion genérica para todos los endpoints: runReport(metrics, dimensions, startDate, endDate) 
+
+    1- Crear servicio genérico, una unica funcion que haga todas las consultas como un async function runReport, la llamada a google. Asi cualquier endpoint diría que necesito si sessions, date, etc. 
+    2-Endpoints muy pequeños GET API DASHBOARD KPIS - devuelve activeUsers,newUsers,sessiones,engagedSessions,pageViews...
+    3-Aceptan parámetros como startDate=2026-02-26&endFate=2026-02-28. Se cambian fechas desde el front sin tocar el back
+    4-Sirve para cualquier cliente solo cambiaría Property ID y Refresh Token
+
+    Pasos a seguir : crear services/ga4Service.js, mover la conexión con GA4 y construir runReport(). Crear 10 o 15 endpoints.
+
