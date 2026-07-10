@@ -25,4 +25,6 @@ router.get("/realtime", analytics.getRealtime);
 
 router.get("/conversions", analytics.getConversions);
 
+router.get("/engagement-rate", analytics.getEngagementRate);
+
 module.exports = router;
