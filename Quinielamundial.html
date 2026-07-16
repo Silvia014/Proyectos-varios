@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiniela Mundial 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --bg-dark:#071a12;
+  --bg-card:#0e3324;
+  --bg-card-alt:#123d2c;
+  --turf:#1f8f4e;
+  --turf-light:#35c96b;
+  --gold:#ffcf40;
+  --gold-dim:#c9a227;
+  --cream:#f4efe0;
+  --white:#ffffff;
+  --red:#ff5b5b;
+  --line:rgba(255,255,255,0.14);
+  --shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+
+body{
+  min-height:100vh;
+  font-family:'Inter',sans-serif;
+  color:var(--cream);
+  background-color:var(--bg-dark);
+  background-image:
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(255,207,64,0.10), transparent 60%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 2px, transparent 2px, transparent 46px),
+    linear-gradient(180deg, #081f16 0%, #071a12 40%, #05140d 100%);
+  background-attachment:fixed;
+  padding:0 0 60px 0;
+}
+
+.wrap{
+  max-width:980px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* HEADER */
+header{
+  text-align:center;
+  padding:38px 20px 26px;
+  position:relative;
+}
+.lang-toggle{
+  position:absolute;
+  top:18px;
+  right:18px;
+  display:flex;
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:4px;
+  gap:2px;
+}
+.lang-toggle button{
+  border:none;
+  background:transparent;
+  color:var(--cream);
+  font-family:'Inter',sans-serif;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:0.06em;
+  padding:7px 13px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:background .15s, color .15s;
+}
+.lang-toggle button.active{
+  background:var(--gold);
+  color:#1a1200;
+}
+
+.trophy{font-size:40px; display:block; margin-bottom:6px; filter:drop-shadow(0 4px 10px rgba(255,207,64,0.35));}
+
+h1.title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(38px,7vw,64px);
+  letter-spacing:0.03em;
+  margin:0;
+  line-height:0.95;
+  color:var(--white);
+  text-shadow:0 0 18px rgba(53,201,107,0.5), 0 2px 0 rgba(0,0,0,0.4);
+}
+h1.title span{color:var(--gold); text-shadow:0 0 18px rgba(255,207,64,0.55), 0 2px 0 rgba(0,0,0,0.4);}
+
+.subtitle{
+  font-size:14px;
+  color:rgba(244,239,224,0.7);
+  margin-top:6px;
+  font-weight:500;
+}
+
+.rules-pill{
+  display:inline-block;
+  margin-top:14px;
+  font-family:'Orbitron',sans-serif;
+  font-size:11px;
+  letter-spacing:0.03em;
+  background:var(--bg-card);
+  border:1px solid var(--gold-dim);
+  color:var(--gold);
+  padding:8px 16px;
+  border-radius:999px;
+}
+
+/* SECTIONS */
+.section{
+  background:linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-alt) 100%);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:24px 22px;
+  margin-bottom:22px;
+  box-shadow:var(--shadow);
+}
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:26px;
+  letter-spacing:0.03em;
+  color:var(--white);
+  margin:0 0 16px 0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.section-title .num{
+  font-family:'Orbitron',sans-serif;
+  font-size:13px;
+  background:var(--turf);
+  color:#04150c;
+  border-radius:7px;
+  padding:3px 8px;
+}
+
+/* NAME */
+.name-row{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+input[type="text"].name-input{
+  flex:1;
+  min-width:220px;
+  background:#04140c;
+  border:1px solid var(--line);
+  color:var(--white);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  font-weight:600;
+  padding:13px 16px;
+  border-radius:10px;
+  outline:none;
+}
+input[type="text"].name-input:focus{
+  border-color:var(--turf-light);
+  box-shadow:0 0 0 3px rgba(53,201,107,0.2);
+}
+
+/* MATCHES GRID */
+.matches-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(270px,1fr));
+  gap:16px;
+}
+.match-card{
+  background:#04140c;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px 16px 14px;
+  position:relative;
+  overflow:hidden;
+}
+.match-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 0%, rgba(255,207,64,0.07), transparent 60%);
+  pointer-events:none;
+}
+.match-date{
+  font-family:'Orbitron',sans-serif;
+  font-size:10px;
+  letter-spacing:0.05em;
+  color:rgba(244,239,224,0.5);
+  text-align:center;
+  margin-bottom:10px;
+}
+.teams-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:14px;
+}
+.team{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  text-align:center;
+}
+.flag{font-size:30px; line-height:1;}
+.team-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:16px;
+  letter-spacing:0.02em;
+  color:var(--white);
+}
+.vs-badge{
+  font-family:'Orbitron',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  color:var(--gold);
+  background:var(--bg-card);
+  border:1.5px solid var(--gold-dim);
+  border-radius:50%;
+  width:32px;height:32px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+
+.mode-toggle{
+  display:flex;
+  background:var(--bg-card);
+  border-radius:999px;
+  padding:3px;
+  margin-bottom:12px;
+}
+.mode-btn{
+  flex:1;
+  border:none;
+  background:transparent;
+  color:rgba(244,239,224,0.65);
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  padding:8px 6px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:background .15s, color .15s;
+}
+.mode-btn.active{
+  background:var(--turf);
+  color:#04150c;
+}
+
+.pick-winner{
+  display:flex;
+  gap:6px;
+}
+.pick-winner.hidden, .pick-score.hidden{display:none;}
+.winner-btn{
+  flex:1;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--cream);
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  font-weight:600;
+  padding:9px 4px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:all .15s;
+}
+.winner-btn.active{
+  background:var(--gold);
+  border-color:var(--gold);
+  color:#1a1200;
+  font-weight:800;
+}
+
+.pick-score{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+.score-input{
+  width:64px;
+  height:56px;
+  text-align:center;
+  background:#020b06;
+  border:1px solid var(--gold-dim);
+  border-radius:8px;
+  color:var(--gold);
+  font-family:'Orbitron',sans-serif;
+  font-size:26px;
+  font-weight:700;
+  text-shadow:0 0 10px rgba(255,207,64,0.55);
+  outline:none;
+  -moz-appearance:textfield;
+}
+.score-input::-webkit-outer-spin-button,
+.score-input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+.score-input:focus{border-color:var(--turf-light); box-shadow:0 0 0 3px rgba(53,201,107,0.2);}
+.score-dash{
+  font-family:'Orbitron',sans-serif;
+  font-size:22px;
+  color:rgba(244,239,224,0.5);
+}
+
+.result-badge{
+  margin-top:12px;
+  text-align:center;
+  font-family:'Orbitron',sans-serif;
+  font-size:11px;
+  letter-spacing:0.03em;
+  padding:6px 8px;
+  border-radius:8px;
+}
+.result-badge.finished{background:rgba(53,201,107,0.15); color:var(--turf-light); border:1px solid rgba(53,201,107,0.4);}
+.result-badge.pending{background:rgba(255,255,255,0.05); color:rgba(244,239,224,0.45); border:1px solid var(--line);}
+
+/* SUBMIT */
+.submit-row{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  margin-top:22px;
+}
+.btn-primary{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;
+  letter-spacing:0.04em;
+  background:linear-gradient(180deg, var(--turf-light), var(--turf));
+  color:#04150c;
+  border:none;
+  padding:14px 42px;
+  border-radius:999px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(53,201,107,0.35);
+  transition:transform .12s;
+}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-primary:active{transform:translateY(0);}
+.status-msg{
+  font-size:13px;
+  font-weight:600;
+  min-height:18px;
+}
+.status-msg.ok{color:var(--turf-light);}
+.status-msg.err{color:var(--red);}
+
+/* LEADERBOARD */
+.leaderboard-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+}
+.refresh-btn{
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  color:var(--cream);
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  padding:8px 14px;
+  border-radius:999px;
+  cursor:pointer;
+}
+.refresh-btn:hover{border-color:var(--turf-light);}
+
+table.board{
+  width:100%;
+  border-collapse:collapse;
+}
+table.board th{
+  text-align:left;
+  font-family:'Orbitron',sans-serif;
+  font-size:10px;
+  letter-spacing:0.06em;
+  color:rgba(244,239,224,0.5);
+  padding:8px 10px;
+  border-bottom:1px solid var(--line);
+}
+table.board td{
+  padding:12px 10px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  font-size:14px;
+}
+table.board tr:first-child td{font-size:16px; font-weight:800; color:var(--gold);}
+.pos-cell{font-family:'Orbitron',sans-serif; font-weight:700; width:38px;}
+.pts-cell{font-family:'Orbitron',sans-serif; font-weight:800; color:var(--turf-light);}
+.empty-state{
+  text-align:center;
+  padding:26px 10px;
+  color:rgba(244,239,224,0.55);
+  font-size:14px;
+}
+
+/* ADMIN */
+.admin-toggle-row{text-align:center; margin-top:10px;}
+.admin-link-btn{
+  background:none;
+  border:none;
+  color:rgba(244,239,224,0.4);
+  font-size:12px;
+  cursor:pointer;
+  text-decoration:underline;
+}
+.admin-panel{
+  margin-top:16px;
+}
+.admin-match-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  flex-wrap:wrap;
+}
+.admin-match-row .amr-teams{
+  flex:1;
+  min-width:160px;
+  font-weight:600;
+  font-size:14px;
+}
+.admin-match-row input{
+  width:52px;
+  text-align:center;
+  background:#020b06;
+  border:1px solid var(--line);
+  color:var(--white);
+  border-radius:6px;
+  padding:8px 4px;
+  font-family:'Orbitron',sans-serif;
+  font-size:15px;
+}
+.admin-save-btn{
+  display:block;
+  margin:16px auto 0;
+  background:var(--gold);
+  color:#1a1200;
+  border:none;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18px;
+  letter-spacing:0.03em;
+  padding:11px 30px;
+  border-radius:999px;
+  cursor:pointer;
+}
+.admin-status{
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+  color:var(--turf-light);
+  min-height:16px;
+  margin-top:8px;
+}
+.hidden{display:none !important;}
+
+footer{
+  text-align:center;
+  font-size:11px;
+  color:rgba(244,239,224,0.35);
+  padding:20px;
+}
+
+@media (max-width:520px){
+  .lang-toggle{position:static; margin-bottom:14px; display:inline-flex;}
+  header{padding-top:24px;}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="lang-toggle" id="langToggle">
+      <button type="button" data-lang="es" class="active">ES</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+    <span class="trophy">🏆</span>
+    <h1 class="title" data-i18n="title">QUINIELA <span>MUNDIAL 2026</span></h1>
+    <div class="subtitle" data-i18n="subtitle">Pronostica los partidos y sube a la tabla</div>
+    <div class="rules-pill" data-i18n="rules">3 PTS GANADOR CORRECTO · 5 PTS MARCADOR EXACTO</div>
+  </header>
+
+  <section class="section">
+    <h2 class="section-title"><span class="num">01</span><span data-i18n="nameLabel">Tu nombre</span></h2>
+    <div class="name-row">
+      <input type="text" id="playerName" class="name-input" data-i18n-placeholder="namePlaceholder" placeholder="Escribe tu nombre...">
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title"><span class="num">02</span><span data-i18n="matchesTitle">Partidos</span></h2>
+    <div class="matches-grid" id="matchesGrid"></div>
+    <div class="submit-row">
+      <button type="button" class="btn-primary" id="submitBtn" data-i18n="submit">Enviar quiniela</button>
+      <div class="status-msg" id="statusMsg"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="leaderboard-head">
+      <h2 class="section-title" style="margin-bottom:0;"><span class="num">03</span><span data-i18n="leaderboard">Tabla de posiciones</span></h2>
+      <button type="button" class="refresh-btn" id="refreshBtn">🔄 <span data-i18n="refresh">Actualizar</span></button>
+    </div>
+    <div id="leaderboardWrap"></div>
+  </section>
+
+  <div class="admin-toggle-row">
+    <button type="button" class="admin-link-btn" id="adminToggleBtn" data-i18n="admin">🔐 Admin</button>
+  </div>
+
+  <section class="section admin-panel hidden" id="adminPanel">
+    <h2 class="section-title"><span class="num">⚙</span><span data-i18n="adminPanelTitle">Panel de resultados reales</span></h2>
+    <div id="adminMatchList"></div>
+    <button type="button" class="admin-save-btn" id="adminSaveBtn" data-i18n="save">Guardar</button>
+    <div class="admin-status" id="adminStatus"></div>
+  </section>
+
+  <footer>
+    Quiniela Mundial 2026 · <span data-i18n="footerNote">Datos guardados y compartidos entre todos los jugadores</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+
+/* ---------- DATA ---------- */
+const MATCHES = [
+  {id:'m1', home:'México', homeEn:'Mexico', away:'Sudáfrica', awayEn:'South Africa', flagHome:'🇲🇽', flagAway:'🇿🇦', date:'11 JUN 2026'},
+  {id:'m2', home:'USA', homeEn:'USA', away:'Paraguay', awayEn:'Paraguay', flagHome:'🇺🇸', flagAway:'🇵🇾', date:'12 JUN 2026'},
+  {id:'m3', home:'Canadá', homeEn:'Canada', away:'Marruecos', awayEn:'Morocco', flagHome:'🇨🇦', flagAway:'🇲🇦', date:'13 JUN 2026'},
+  {id:'m4', home:'Argentina', homeEn:'Argentina', away:'Japón', awayEn:'Japan', flagHome:'🇦🇷', flagAway:'🇯🇵', date:'14 JUN 2026'},
+  {id:'m5', home:'Brasil', homeEn:'Brazil', away:'Alemania', awayEn:'Germany', flagHome:'🇧🇷', flagAway:'🇩🇪', date:'15 JUN 2026'},
+  {id:'m6', home:'España', homeEn:'Spain', away:'Corea del Sur', awayEn:'South Korea', flagHome:'🇪🇸', flagAway:'🇰🇷', date:'16 JUN 2026'}
+];
+
+const ADMIN_PASSWORD = 'gol2026';
+
+const I18N = {
+  es:{
+    title_a:'QUINIELA', title_b:'MUNDIAL 2026',
+    subtitle:'Pronostica los partidos y sube a la tabla',
+    rules:'3 PTS GANADOR CORRECTO · 5 PTS MARCADOR EXACTO',
+    nameLabel:'Tu nombre',
+    namePlaceholder:'Escribe tu nombre...',
+    matchesTitle:'Partidos',
+    modeWinner:'Ganador',
+    modeScore:'Marcador exacto',
+    home:'Local', draw:'Empate', away:'Visita',
+    submit:'Enviar quiniela',
+    refresh:'Actualizar',
+    leaderboard:'Tabla de posiciones',
+    admin:'🔐 Admin',
+    adminPanelTitle:'Panel de resultados reales',
+    save:'Guardar resultados',
+    footerNote:'Datos guardados y compartidos entre todos los jugadores',
+    pos:'Pos', player:'Jugador', pts:'Pts', exact:'Exactos',
+    emptyBoard:'Todavía no hay pronósticos. ¡Sé el primero en enviar!',
+    errName:'Escribe tu nombre para continuar.',
+    errPicks:'Completa un pronóstico (ganador o marcador) en cada partido.',
+    okSubmit:'¡Quiniela enviada! Ya apareces en la tabla.',
+    finished:'Resultado', pending:'Pendiente',
+    adminWrong:'Contraseña incorrecta.',
+    adminSaved:'Resultados guardados ✓ Tabla actualizada.',
+    vs:'vs'
+  },
+  en:{
+    title_a:'WORLD CUP', title_b:'2026 POOL',
+    subtitle:'Predict the matches and climb the table',
+    rules:'3 PTS CORRECT WINNER · 5 PTS EXACT SCORE',
+    nameLabel:'Your name',
+    namePlaceholder:'Type your name...',
+    matchesTitle:'Matches',
+    modeWinner:'Winner',
+    modeScore:'Exact score',
+    home:'Home', draw:'Draw', away:'Away',
+    submit:'Submit picks',
+    refresh:'Refresh',
+    leaderboard:'Leaderboard',
+    admin:'🔐 Admin',
+    adminPanelTitle:'Real results panel',
+    save:'Save results',
+    footerNote:'Data is saved and shared across all players',
+    pos:'Pos', player:'Player', pts:'Pts', exact:'Exact',
+    emptyBoard:'No picks yet. Be the first to submit!',
+    errName:'Enter your name to continue.',
+    errPicks:'Complete a pick (winner or score) for every match.',
+    okSubmit:'Picks submitted! You are now on the board.',
+    finished:'Result', pending:'Pending',
+    adminWrong:'Wrong password.',
+    adminSaved:'Results saved ✓ Table updated.',
+    vs:'vs'
+  }
+};
+
+let lang = 'es';
+let adminUnlocked = false;
+const t = (k) => I18N[lang][k] || k;
+
+/* ---------- STORAGE HELPERS ---------- */
+async function getResults(){
+  try{
+    const r = await window.storage.get('results', true);
+    return r ? JSON.parse(r.value) : {};
+  }catch(e){ return {}; }
+}
+async function saveResults(obj){
+  try{ await window.storage.set('results', JSON.stringify(obj), true); }
+  catch(e){ console.error('saveResults failed', e); }
+}
+async function getAllPicks(){
+  const out = [];
+  try{
+    const list = await window.storage.list('picks:', true);
+    if(!list || !list.keys) return out;
+    for(const k of list.keys){
+      try{
+        const r = await window.storage.get(k, true);
+        if(r && r.value) out.push(JSON.parse(r.value));
+      }catch(e){ /* skip missing */ }
+    }
+  }catch(e){ console.error('getAllPicks failed', e); }
+  return out;
+}
+function slugify(name){
+  return name.trim().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9]+/g,'_')
+    .replace(/^_+|_+$/g,'')
+    .slice(0,40) || 'jugador';
+}
+async function savePick(slug, data){
+  try{ await window.storage.set('picks:'+slug, JSON.stringify(data), true); return true; }
+  catch(e){ console.error('savePick failed', e); return false; }
+}
+
+/* ---------- SCORING ---------- */
+function scoreForPick(pick, result){
+  if(!result || !result.finished) return {pts:0, exact:false};
+  const actualWinner = result.home>result.away?'home':(result.home<result.away?'away':'draw');
+  if(pick.mode==='score'){
+    if(pick.home===result.home && pick.away===result.away) return {pts:5, exact:true};
+    const pickWinner = pick.home>pick.away?'home':(pick.home<pick.away?'away':'draw');
+    return {pts: pickWinner===actualWinner ? 3 : 0, exact:false};
+  } else {
+    return {pts: pick.winner===actualWinner ? 3 : 0, exact:false};
+  }
+}
+
+/* ---------- RENDER: MATCH CARDS ---------- */
+function buildMatchCards(){
+  const grid = document.getElementById('matchesGrid');
+  grid.innerHTML = MATCHES.map(m => `
+    <div class="match-card" data-match="${m.id}">
+      <div class="match-date">${m.date}</div>
+      <div class="teams-row">
+        <div class="team">
+          <span class="flag">${m.flagHome}</span>
+          <span class="team-name" data-es="${m.home}" data-en="${m.homeEn}">${m.home}</span>
+        </div>
+        <div class="vs-badge" data-i18n="vs">VS</div>
+        <div class="team">
+          <span class="flag">${m.flagAway}</span>
+          <span class="team-name" data-es="${m.away}" data-en="${m.awayEn}">${m.away}</span>
+        </div>
+      </div>
+      <div class="mode-toggle">
+        <button type="button" class="mode-btn active" data-mode="winner" data-i18n="modeWinner">Ganador</button>
+        <button type="button" class="mode-btn" data-mode="score" data-i18n="modeScore">Marcador exacto</button>
+      </div>
+      <div class="pick-winner">
+        <button type="button" class="winner-btn" data-winner="home" data-i18n="home">Local</button>
+        <button type="button" class="winner-btn" data-winner="draw" data-i18n="draw">Empate</button>
+        <button type="button" class="winner-btn" data-winner="away" data-i18n="away">Visita</button>
+      </div>
+      <div class="pick-score hidden">
+        <input type="number" min="0" max="20" class="score-input" data-side="home" value="">
+        <span class="score-dash">–</span>
+        <input type="number" min="0" max="20" class="score-input" data-side="away" value="">
+      </div>
+      <div class="result-badge pending" data-result-badge data-match-ref="${m.id}" data-i18n="pending">Pendiente</div>
+    </div>
+  `).join('');
+
+  // Event delegation for mode + winner buttons
+  grid.querySelectorAll('.match-card').forEach(card=>{
+    card.querySelectorAll('.mode-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        card.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const mode = btn.dataset.mode;
+        card.querySelector('.pick-winner').classList.toggle('hidden', mode!=='winner');
+        card.querySelector('.pick-score').classList.toggle('hidden', mode!=='score');
+      });
+    });
+    card.querySelectorAll('.winner-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        card.querySelectorAll('.winner-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  });
+}
+
+/* ---------- RESULT BADGES ---------- */
+async function applyResultBadges(){
+  const results = await getResults();
+  document.querySelectorAll('[data-result-badge]').forEach(el=>{
+    const id = el.dataset.matchRef;
+    const r = results[id];
+    if(r && r.finished){
+      el.textContent = `${t('finished')}: ${r.home}-${r.away}`;
+      el.classList.remove('pending');
+      el.classList.add('finished');
+      el.removeAttribute('data-i18n');
+    } else {
+      el.textContent = t('pending');
+      el.classList.remove('finished');
+      el.classList.add('pending');
+      el.setAttribute('data-i18n','pending');
+    }
+  });
+  return results;
+}
+
+/* ---------- LEADERBOARD ---------- */
+async function refreshLeaderboard(){
+  const wrap = document.getElementById('leaderboardWrap');
+  const [results, picks] = await Promise.all([getResults(), getAllPicks()]);
+
+  const rows = picks.map(p=>{
+    let total = 0, exactCount = 0;
+    MATCHES.forEach(m=>{
+      const pick = p.picks && p.picks[m.id];
+      if(!pick) return;
+      const {pts, exact} = scoreForPick(pick, results[m.id]);
+      total += pts;
+      if(exact) exactCount++;
+    });
+    return {name: p.name, total, exactCount};
+  });
+
+  rows.sort((a,b)=> b.total - a.total || b.exactCount - a.exactCount || a.name.localeCompare(b.name));
+
+  if(rows.length === 0){
+    wrap.innerHTML = `<div class="empty-state">${t('emptyBoard')}</div>`;
+    return;
+  }
+
+  const medals = ['🥇','🥈','🥉'];
+  wrap.innerHTML = `
+    <table class="board">
+      <thead><tr>
+        <th>${t('pos')}</th><th>${t('player')}</th><th>${t('exact')}</th><th style="text-align:right">${t('pts')}</th>
+      </tr></thead>
+      <tbody>
+        ${rows.map((r,i)=>`
+          <tr>
+            <td class="pos-cell">${medals[i] || (i+1)}</td>
+            <td>${escapeHtml(r.name)}</td>
+            <td>${r.exactCount}</td>
+            <td class="pts-cell" style="text-align:right">${r.total}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ---------- SUBMIT ---------- */
+async function handleSubmit(){
+  const statusEl = document.getElementById('statusMsg');
+  const nameInput = document.getElementById('playerName');
+  const name = nameInput.value.trim();
+
+  statusEl.className = 'status-msg';
+  statusEl.textContent = '';
+
+  if(!name){
+    statusEl.classList.add('err');
+    statusEl.textContent = t('errName');
+    nameInput.focus();
+    return;
+  }
+
+  const picks = {};
+  let allValid = true;
+
+  document.querySelectorAll('.match-card').forEach(card=>{
+    const id = card.dataset.match;
+    const mode = card.querySelector('.mode-btn.active').dataset.mode;
+    if(mode === 'winner'){
+      const sel = card.querySelector('.winner-btn.active');
+      if(!sel){ allValid = false; card.style.outline = '1px solid #ff5b5b'; return; }
+      card.style.outline = '';
+      picks[id] = {mode:'winner', winner: sel.dataset.winner};
+    } else {
+      const h = card.querySelector('[data-side="home"]').value;
+      const a = card.querySelector('[data-side="away"]').value;
+      if(h === '' || a === ''){ allValid = false; card.style.outline = '1px solid #ff5b5b'; return; }
+      card.style.outline = '';
+      picks[id] = {mode:'score', home: parseInt(h,10), away: parseInt(a,10)};
+    }
+  });
+
+  if(!allValid){
+    statusEl.classList.add('err');
+    statusEl.textContent = t('errPicks');
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  const slug = slugify(name);
+  const ok = await savePick(slug, {name, picks, ts: Date.now()});
+  btn.disabled = false;
+
+  if(ok){
+    statusEl.classList.add('ok');
+    statusEl.textContent = t('okSubmit');
+    await refreshLeaderboard();
+  } else {
+    statusEl.classList.add('err');
+    statusEl.textContent = 'Error';
+  }
+}
+
+/* ---------- ADMIN ---------- */
+function buildAdminList(){
+  const list = document.getElementById('adminMatchList');
+  list.innerHTML = MATCHES.map(m=>`
+    <div class="admin-match-row" data-match="${m.id}">
+      <div class="amr-teams">${m.home} ${t('vs')} ${m.away}</div>
+      <input type="number" min="0" max="20" data-side="home" placeholder="-">
+      <span class="score-dash">–</span>
+      <input type="number" min="0" max="20" data-side="away" placeholder="-">
+    </div>
+  `).join('');
+}
+
+async function prefillAdminList(){
+  const results = await getResults();
+  document.querySelectorAll('.admin-match-row').forEach(row=>{
+    const id = row.dataset.match;
+    const r = results[id];
+    if(r && r.finished){
+      row.querySelector('[data-side="home"]').value = r.home;
+      row.querySelector('[data-side="away"]').value = r.away;
+    }
+  });
+}
+
+async function handleAdminSave(){
+  const current = await getResults();
+  document.querySelectorAll('.admin-match-row').forEach(row=>{
+    const id = row.dataset.match;
+    const h = row.querySelector('[data-side="home"]').value;
+    const a = row.querySelector('[data-side="away"]').value;
+    if(h !== '' && a !== ''){
+      current[id] = {home: parseInt(h,10), away: parseInt(a,10), finished: true};
+    }
+  });
+  await saveResults(current);
+  await applyResultBadges();
+  await refreshLeaderboard();
+  const statusEl = document.getElementById('adminStatus');
+  statusEl.textContent = t('adminSaved');
+  setTimeout(()=>{ statusEl.textContent=''; }, 3500);
+}
+
+function toggleAdminPanel(){
+  const panel = document.getElementById('adminPanel');
+  if(!adminUnlocked){
+    const pw = window.prompt(lang==='es' ? 'Contraseña de administrador:' : 'Admin password:');
+    if(pw === null) return;
+    if(pw !== ADMIN_PASSWORD){
+      alert(t('adminWrong'));
+      return;
+    }
+    adminUnlocked = true;
+  }
+  panel.classList.toggle('hidden');
+  if(!panel.classList.contains('hidden')){
+    prefillAdminList();
+  }
+}
+
+/* ---------- I18N RENDER ---------- */
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(key === 'pending' || key === 'vs'){
+      // handled dynamically elsewhere too, but safe to set default
+      el.textContent = t(key);
+    } else {
+      el.textContent = t(key);
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
+  });
+  document.querySelectorAll('.team-name').forEach(el=>{
+    el.textContent = lang === 'es' ? el.dataset.es : el.dataset.en;
+  });
+  document.querySelectorAll('.admin-match-row .amr-teams').forEach((el,i)=>{
+    const m = MATCHES[i];
+    const home = lang==='es' ? m.home : m.homeEn;
+    const away = lang==='es' ? m.away : m.awayEn;
+    el.textContent = `${home} ${t('vs')} ${away}`;
+  });
+  document.getElementById('langToggle').querySelectorAll('button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+
+  const titleEl = document.querySelector('h1.title');
+  titleEl.innerHTML = `${t('title_a')} <span>${t('title_b')}</span>`;
+
+  applyResultBadges();
+  refreshLeaderboard();
+}
+
+/* ---------- INIT ---------- */
+function init(){
+  buildMatchCards();
+  buildAdminList();
+
+  document.getElementById('langToggle').addEventListener('click', (e)=>{
+    const btn = e.target.closest('button[data-lang]');
+    if(!btn) return;
+    lang = btn.dataset.lang;
+    applyLang();
+  });
+
+  document.getElementById('submitBtn').addEventListener('click', handleSubmit);
+  document.getElementById('refreshBtn').addEventListener('click', refreshLeaderboard);
+  document.getElementById('adminToggleBtn').addEventListener('click', toggleAdminPanel);
+  document.getElementById('adminSaveBtn').addEventListener('click', handleAdminSave);
+
+  applyLang();
+  applyResultBadges();
+  refreshLeaderboard();
+
+  // Live-ish polling so the table feels shared/live
+  setInterval(refreshLeaderboard, 20000);
+}
+
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+})();
+</script>
+</body>
+</html>
