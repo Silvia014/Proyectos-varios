@@ -1,0 +1,1368 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal en Vivo de Campaña del Cliente - Guía de Edición</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --primary-9348: #4F46E5;
+      --primary-light-9348: #EEF2F6;
+      --success-9348: #10B981;
+      --success-light-9348: #ECFDF5;
+      --warning-9348: #F59E0B;
+      --warning-light-9348: #FEF3C7;
+      --info-9348: #3B82F6;
+      --info-light-9348: #EFF6FF;
+      --danger-9348: #EF4444;
+      --danger-light-9348: #FEF2F2;
+      
+      --neutral-dark-9348: #0F172A;
+      --neutral-muted-9348: #64748B;
+      --neutral-light-9348: #F8FAFC;
+      --neutral-border-9348: #E2E8F0;
+      --white-9348: #FFFFFF;
+
+      --font-display-9348: 'Outfit', sans-serif;
+      --font-body-9348: 'Plus Jakarta Sans', sans-serif;
+
+      --shadow-sm-9348: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md-9348: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --shadow-lg-9348: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+      
+      --radius-sm-9348: 8px;
+      --radius-md-9348: 14px;
+      --radius-lg-9348: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    .dashboard-wrapper-9348 {
+      background-color: #F3F4F6;
+      min-height: 100vh;
+      font-family: var(--font-body-9348);
+      color: var(--neutral-dark-9348);
+      padding: 16px;
+      container-type: inline-size;
+      container-name: dashboard-container-9348;
+    }
+
+    @container dashboard-container-9348 (min-width: 768px) {
+      .dashboard-wrapper-9348 {
+        padding: 32px;
+      }
+    }
+
+    /* Top Navigation bar */
+    .top-nav-9348 {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background-color: var(--white-9348);
+      padding: 20px 24px;
+      border-radius: var(--radius-lg-9348);
+      box-shadow: var(--shadow-sm-9348);
+      border: 1px solid var(--neutral-border-9348);
+      margin-bottom: 24px;
+    }
+
+    @container dashboard-container-9348 (min-width: 768px) {
+      .top-nav-9348 {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .brand-section-9348 {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-icon-9348 {
+      background-color: var(--primary-light-9348);
+      color: var(--primary-9348);
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md-9348);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .brand-meta-9348 h1 {
+      font-family: var(--font-display-9348);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--neutral-dark-9348);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-meta-9348 p {
+      font-size: 0.85rem;
+      color: var(--neutral-muted-9348);
+    }
+
+    .nav-actions-9348 {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Client-first interactive badges */
+    .client-badge-9348 {
+      background-color: var(--success-light-9348);
+      color: var(--success-9348);
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pulse-dot-9348 {
+      width: 8px;
+      height: 8px;
+      background-color: var(--success-9348);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse-9348 1.6s infinite;
+    }
+
+    @keyframes pulse-9348 {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .toggle-editor-btn-9348 {
+      background-color: var(--neutral-dark-9348);
+      color: var(--white-9348);
+      border: none;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm-9348);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toggle-editor-btn-9348:hover {
+      background-color: var(--primary-9348);
+    }
+
+    /* Main Dashboard Layout Splits */
+    .grid-container-9348 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @container dashboard-container-9348 (min-width: 1024px) {
+      .grid-container-9348.with-editor-9348 {
+        grid-template-columns: 2.8fr 1.2fr;
+      }
+    }
+
+    /* Editor Panel Sidebar styles */
+    .editor-sidebar-9348 {
+      background-color: var(--white-9348);
+      border-radius: var(--radius-lg-9348);
+      padding: 24px;
+      box-shadow: var(--shadow-md-9348);
+      border: 1px solid var(--neutral-border-9348);
+      height: fit-content;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .editor-header-9348 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--neutral-border-9348);
+    }
+
+    .editor-title-9348 {
+      font-family: var(--font-display-9348);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--neutral-dark-9348);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-group-9348 {
+      margin-bottom: 16px;
+    }
+
+    .form-label-9348 {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--neutral-muted-9348);
+      margin-bottom: 6px;
+    }
+
+    .input-field-9348 {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--neutral-border-9348);
+      border-radius: var(--radius-sm-9348);
+      font-family: var(--font-body-9348);
+      font-size: 0.9rem;
+      color: var(--neutral-dark-9348);
+      transition: all 0.2s ease;
+    }
+
+    .input-field-9348:focus {
+      outline: none;
+      border-color: var(--primary-9348);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+
+    .btn-update-9348 {
+      width: 100%;
+      background-color: var(--primary-9348);
+      color: var(--white-9348);
+      border: none;
+      padding: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm-9348);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+
+    .btn-update-9348:hover {
+      background-color: #4338CA;
+    }
+
+    /* Client view welcome banner */
+    .welcome-banner-9348 {
+      background: linear-gradient(135deg, var(--primary-9348) 0%, #312E81 100%);
+      color: var(--white-9348);
+      padding: 30px;
+      border-radius: var(--radius-lg-9348);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg-9348);
+      transition: background 0.3s ease;
+    }
+
+    .welcome-banner-9348::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+    }
+
+    .welcome-title-9348 {
+      font-family: var(--font-display-9348);
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .welcome-desc-9348 {
+      font-size: 1rem;
+      max-width: 600px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    /* KPI Grid setup */
+    .kpi-grid-9348 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @container dashboard-container-9348 (min-width: 500px) {
+      .kpi-grid-9348 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @container dashboard-container-9348 (min-width: 850px) {
+      .kpi-grid-9348 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* Individual Card styling designed to be exceptionally readable and soft */
+    .kpi-card-9348 {
+      background-color: var(--white-9348);
+      border-radius: var(--radius-md-9348);
+      padding: 24px;
+      box-shadow: var(--shadow-sm-9348);
+      border: 1px solid var(--neutral-border-9348);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .kpi-card-9348:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md-9348);
+    }
+
+    .kpi-header-9348 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .kpi-label-9348 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--neutral-muted-9348);
+    }
+
+    .kpi-icon-9348 {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    /* Dropdown */
+    #mes {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background: var(--primary-9348);
+    color: var(--white-9348);
+    border: none;
+    border-radius: var(--radius-md-9348);
+    font-family: var(--font-body-9348);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s ease;
+    box-shadow: var(--shadow-sm-9348);
+}
+
+#mes:hover {
+    background: #4338CA;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg-9348);
+}
+        
+    /* Jargon Translator Tooltip block under KPI values */
+    .kpi-explanation-9348 {
+      font-size: 0.78rem;
+      color: var(--neutral-muted-9348);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-top: 1px dashed var(--neutral-border-9348);
+      padding-top: 10px;
+      margin-top: 4px;
+    }
+
+    .kpi-explanation-9348 i {
+      color: var(--primary-9348);
+    }
+
+    /* Main Chart visual blocks */
+    .chart-card-9348 {
+      background-color: var(--white-9348);
+      border-radius: var(--radius-lg-9348);
+      padding: 24px;
+      box-shadow: var(--shadow-sm-9348);
+      border: 1px solid var(--neutral-border-9348);
+      margin-bottom: 24px;
+    }
+
+    .chart-card-header-9348 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .chart-card-title-9348 {
+      font-family: var(--font-display-9348);
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .chart-container-9348 {
+      position: relative;
+      height: 350px;
+      width: 100%;
+    }
+
+    /* Developer Guide Container (Directly answering user's query) */
+    .dev-guide-card-9348 {
+      background-color: #ECFDF5;
+      border: 1px dashed var(--success-9348);
+      border-radius: var(--radius-lg-9348);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .dev-guide-header-9348 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: #065F46;
+    }
+
+    .dev-guide-header-9348 h3 {
+      font-family: var(--font-display-9348);
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .dev-steps-9348 {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dev-step-item-9348 {
+      background-color: var(--white-9348);
+      border-radius: var(--radius-md-9348);
+      padding: 16px;
+      box-shadow: var(--shadow-sm-9348);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .dev-step-title-9348 {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #065F46;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dev-step-desc-9348 {
+      font-size: 0.85rem;
+      color: var(--neutral-muted-9348);
+      line-height: 1.5;
+    }
+
+    .code-sample-9348 {
+      font-family: monospace;
+      font-size: 0.8rem;
+      background-color: #F1F5F9;
+      color: #0F172A;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm-9348);
+      display: block;
+      margin-top: 8px;
+      border-left: 3px solid var(--success-9348);
+      overflow-x: auto;
+    }
+
+    /* Friendly "What does this mean?" Client Glossary Component */
+    .glossary-card-9348 {
+      background-color: #FAF5FF;
+      border: 1px solid #E9D5FF;
+      border-radius: var(--radius-lg-9348);
+      padding: 24px;
+    }
+
+    .glossary-header-9348 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      color: #6B21A8;
+    }
+
+    .glossary-header-9348 h3 {
+      font-family: var(--font-display-9348);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .glossary-grid-9348 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @container dashboard-container-9348 (min-width: 600px) {
+      .glossary-grid-9348 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .glossary-item-9348 {
+      background-color: var(--white-9348);
+      padding: 16px;
+      border-radius: var(--radius-md-9348);
+      border: 1px solid rgba(107, 33, 168, 0.1);
+    }
+
+    .glossary-term-9348 {
+      font-weight: 700;
+      color: #6B21A8;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .glossary-definition-9348 {
+      font-size: 0.8rem;
+      color: var(--neutral-muted-9348);
+      line-height: 1.4;
+    }
+
+    /* Live Color Customizer box in sidebar */
+    .style-customizer-9348 {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--neutral-border-9348);
+    }
+
+    .color-picker-wrapper-9348 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .color-input-9348 {
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      outline: none;
+      background: none;
+    }
+
+    /* Notification/Alert Toast */
+    .toast-9348 {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: var(--neutral-dark-9348);
+      color: var(--white-9348);
+      padding: 14px 20px;
+      border-radius: var(--radius-sm-9348);
+      box-shadow: var(--shadow-lg-9348);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      z-index: 1000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .toast-9348.show-9348 {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-9348 i {
+      color: var(--success-9348);
+    }
+
+    /* Hidden element helper class */
+    .hidden-9348 {
+      display: none !important;
+    }
+
+    /* Discreet agency access link, tucked away so clients don't notice it */
+    .agency-access-link-9348 {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      color: var(--neutral-muted-9348);
+      opacity: 0.45;
+      font-size: 0.72rem;
+      font-family: var(--font-body-9348);
+      cursor: pointer;
+      padding: 6px 4px;
+      margin-top: 18px;
+      transition: opacity 0.2s ease;
+    }
+
+    .agency-access-link-9348:hover {
+      opacity: 1;
+    }
+
+    .agency-footer-row-9348 {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Login modal overlay */
+    .auth-overlay-9348 {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 16px;
+    }
+
+    .auth-modal-9348 {
+      background: var(--white-9348);
+      border-radius: var(--radius-lg-9348);
+      padding: 28px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: var(--shadow-lg-9348);
+    }
+
+    .auth-modal-header-9348 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .auth-modal-header-9348 h3 {
+      font-family: var(--font-display-9348);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .auth-error-9348 {
+      color: var(--danger-9348);
+      font-size: 0.82rem;
+      margin-top: 4px;
+      min-height: 16px;
+    }
+
+    .auth-actions-9348 {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn-secondary-9348 {
+      flex: 1;
+      background-color: var(--neutral-light-9348);
+      color: var(--neutral-dark-9348);
+      border: 1px solid var(--neutral-border-9348);
+      padding: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm-9348);
+      cursor: pointer;
+    }
+
+    .btn-primary-inline-9348 {
+      flex: 1;
+      background-color: var(--primary-9348);
+      color: var(--white-9348);
+      border: none;
+      padding: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm-9348);
+      cursor: pointer;
+    }
+
+    .role-badge-9348 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+
+    .role-badge-superadmin-9348 {
+      background-color: #FEF3C7;
+      color: #92400E;
+    }
+
+    .role-badge-admin-9348 {
+      background-color: var(--primary-light-9348);
+      color: var(--primary-9348);
+    }
+
+    .btn-logout-9348 {
+      background: none;
+      border: none;
+      color: var(--neutral-muted-9348);
+      font-size: 0.78rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Highest Level Containment -->
+  <div class="dashboard-wrapper-9348" id="experience-wrapper-9348">
+    
+    <!-- Top Navigation Header -->
+    <header class="top-nav-9348">
+      <div class="brand-section-9348">
+        <div class="brand-icon-9348" id="header-brand-icon-9348">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="brand-meta-9348">
+          <h1>Portal campaña SEM en vivo</h1>
+          <p>Espacio de trabajo de rendimiento en tiempo real y centro de clientes</p>
+        </div>
+      </div>
+
+      <div class="nav-actions-9348">
+        <div class="client-badge-9348">
+          <span class="pulse-dot-9348"></span>
+          Modo Cliente Activo
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Responsive Layout grid -->
+    <div class="grid-container-9348" id="grid-container-9348">
+      
+      <!-- Left / Main Panel (Client View Dashboard) -->
+      <main class="main-content-9348">
+    
+
+        <!-- Friendly welcome banner -->
+        <section class="welcome-banner-9348" id="welcome-banner-9348">
+          <h2 class="welcome-title-9348">¡Bienvenido, compañero!</h2>
+          <p class="welcome-desc-9348">
+            Aquí tiene una vista simplificada del rendimiento de su campaña publicitaria en Google. Sin terminología técnica confusa, solo métricas de éxito claras y transparentes actualizadas en vivo.
+          </p>
+        </section>
+        <!-- Dropdown -->
+         <label for="mes">Selecciona un mes:</label>
+
+          <select id="mes" name="mes">
+            <option value="">-- Elige un mes --</option>
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+           </select>
+
+           <button id="mes">Aceptar</button>
+        <!-- KPI Grid with explanatory content -->
+        <section class="kpi-grid-9348">
+          
+          <!-- Ad Costs -->
+          <article class="kpi-card-9348">
+            <div class="kpi-header-9348">
+              <span class="kpi-label-9348">Costo</span>
+              <div class="kpi-icon-9348 icon-spend-9348" id="kpi-spend-icon-9348">
+                <i class="fas fa-wallet"></i>
+              </div>
+            </div>
+            <div>
+              <div class="kpi-value-9348" id="val-cost-9348">30€</div>
+              <p class="kpi-explanation-9348">
+                <i class="fas fa-info-circle"></i>
+                Dinero total invertido en anuncios
+              </p>
+            </div>
+          </article>
+
+          <!-- Impressions -->
+          <article class="kpi-card-9348">
+            <div class="kpi-header-9348">
+              <span class="kpi-label-9348">Impresiones</span>
+              <div class="kpi-icon-9348 icon-impressions-9348">
+                <i class="fas fa-eye"></i>
+              </div>
+            </div>
+            <div>
+              <div class="kpi-value-9348" id="val-impressions-9348">2.228</div>
+              <p class="kpi-explanation-9348">
+                <i class="fas fa-info-circle"></i>
+                Número de veces que se mostraron los anuncios
+              </p>
+            </div>
+          </article>
+
+          <!-- CTR -->
+          <article class="kpi-card-9348">
+            <div class="kpi-header-9348">
+              <span class="kpi-label-9348">CTR del Anuncio</span>
+              <div class="kpi-icon-9348 icon-ctr-9348">
+                <i class="fas fa-mouse-pointer"></i>
+              </div>
+            </div>
+            <div>
+              <div class="kpi-value-9348" id="val-ctr-9348">7,54%</div>
+              <p class="kpi-explanation-9348">
+                <i class="fas fa-info-circle"></i>
+                Qué tan seguido la gente hace clic en su anuncio
+              </p>
+            </div>
+          </article>
+
+          <!-- CPC -->
+          <article class="kpi-card-9348">
+            <div class="kpi-header-9348">
+              <span class="kpi-label-9348">CPC Promedio</span>
+              <div class="kpi-icon-9348 icon-cpc-9348">
+                <i class="fas fa-hand-pointer"></i>
+              </div>
+            </div>
+            <div>
+              <div class="kpi-value-9348" id="val-cpc-9348">0,09€</div>
+              <p class="kpi-explanation-9348">
+                <i class="fas fa-info-circle"></i>
+                Costo promedio por clic directo
+              </p>
+            </div>
+          </article>
+
+        </section>
+
+        <!-- Chart representation of trend -->
+        <section class="chart-card-9348">
+          <div class="chart-card-header-9348">
+            <h3 class="chart-card-title-9348">Tendencia de Rendimiento Reciente</h3>
+            <span style="font-size: 0.85rem; color: var(--neutral-muted-9348);">Visualización de costos de anuncios vs. interés de clics</span>
+          </div>
+          <div class="chart-container-9348">
+            <canvas id="live-trend-chart-9348" width="1864" height="700" style="display: block; box-sizing: border-box; height: 350px; width: 932px;"></canvas>
+          </div>
+        </section>
+
+        <!-- Friendly Glossary of Jargon -->
+        <section class="glossary-card-9348">
+          <div class="glossary-header-9348">
+            <i class="fas fa-heart"></i>
+            <h3>Decodificador de jerga</h3>
+          </div>
+          <div class="glossary-grid-9348">
+            <div class="glossary-item-9348">
+              <h4 class="glossary-term-9348">
+                <i class="fas fa-wallet"></i> Costo
+              </h4>
+              <p class="glossary-definition-9348">
+                La cantidad total de dinero gastado en Google Ads. Optimizamos esto constantemente para obtener la mayor cantidad de clics para su presupuesto.
+              </p>
+            </div>
+            <div class="glossary-item-9348">
+              <h4 class="glossary-term-9348">
+                <i class="fas fa-eye"></i> Impresiones
+              </h4>
+              <p class="glossary-definition-9348">
+                La cantidad de veces que su anuncio se mostró en pantalla. Piense en ello como las impresiones de un espectacular en una carretera muy transitada.
+              </p>
+            </div>
+            <div class="glossary-item-9348">
+              <h4 class="glossary-term-9348">
+                <i class="fas fa-mouse-pointer"></i> CTR del Anuncio (Click-Through Rate)
+              </h4>
+              <p class="glossary-definition-9348">
+                El porcentaje de espectadores que hicieron clic en su anuncio. Valores más altos significan que el mensaje conecta fuertemente con su audiencia.
+              </p>
+            </div>
+            <div class="glossary-item-9348">
+              <h4 class="glossary-term-9348">
+                <i class="fas fa-hand-pointer"></i> CPC Promedio (Costo por Clic)
+              </h4>
+              <p class="glossary-definition-9348">
+                El costo promedio que pagó cada vez que un cliente potencial visitó su página de destino a través de los anuncios publicitarios.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Discreet agency-only access link. Not styled as a button so it doesn't invite client clicks -->
+        <div class="agency-footer-row-9348">
+          <button class="agency-access-link-9348" id="agency-access-link-9348" type="button">
+            <i class="fas fa-lock" style="font-size: 0.68rem;"></i> Acceso agencia
+          </button>
+        </div>
+
+      </main>
+
+      <!-- Right Panel: LIVE DATA INPUT FEED PANEL (only rendered after login) -->
+      <aside class="editor-sidebar-9348 hidden-9348" id="editor-sidebar-9348">
+        <div class="editor-header-9348">
+          <h3 class="editor-title-9348">
+            <i class="fas fa-database"></i>
+            Editor de Datos
+          </h3>
+          <span id="role-badge-9348" class="role-badge-9348 role-badge-admin-9348">Admin</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--neutral-muted-9348); margin-bottom: 20px; line-height: 1.4;">
+          Ingrese las métricas en vivo a continuación para actualizar instantáneamente las vistas del panel del cliente.
+        </p>
+
+        <form id="data-update-form-9348">
+          <div class="form-group-9348">
+            <label class="form-label-9348" for="input-cost-9348">Costo de la Campaña (€)</label>
+            <input type="number" id="input-cost-9348" class="input-field-9348" step="0.01" value="30.00" required="">
+          </div>
+
+          <div class="form-group-9348">
+            <label class="form-label-9348" for="input-impressions-9348">Impresiones</label>
+            <input type="number" id="input-impressions-9348" class="input-field-9348" value="45120" required="">
+          </div>
+
+          <div class="form-group-9348">
+            <label class="form-label-9348" for="input-clicks-9348">Clics Totales</label>
+            <input type="number" id="input-clicks-9348" class="input-field-9348" value="2188" required="">
+          </div>
+
+          <button type="submit" class="btn-update-9348">
+            Actualizar Datos de Campaña
+          </button>
+        </form>
+
+        <!-- Dynamic Style modifier helper for testing color changes - superadmin only -->
+        <div hidden class="hidden-9348 style-customizer-9348" id="style-customizer-9348">
+          <label class="form-label-9348"><i class="fas fa-palette"></i> Cambiar Color Primario (Simulador CSS)</label>
+          <p style="font-size: 0.75rem; color: var(--neutral-muted-9348); margin-bottom: 8px;">
+            Elige un color para ver cómo se modifica dinámicamente la variable CSS <code>--primary-9348</code>:
+          </p>
+          <div class="color-picker-wrapper-9348">
+            <input type="color" id="primary-color-picker-9348" class="color-input-9348" value="#4F46E5">
+            <span id="color-hex-label-9348" style="font-size: 0.85rem; font-weight: bold; color: var(--neutral-dark-9348);">#4F46E5</span>
+          </div>
+        </div>
+
+        <div class="hidden-9348" id="calc-metrics-info-9348" style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--neutral-border-9348); font-size: 0.8rem; color: var(--neutral-muted-9348);">
+          <div style="font-weight: 600; margin-bottom: 6px; color: var(--neutral-dark-9348);">Métricas calculadas mostradas al cliente:</div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px;">
+            <li>CTR = (Clics / Impresiones) * 100</li>
+            <li>CPC Prom. = Costo / Clics</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 20px; text-align: right;">
+          <button type="button" class="btn-logout-9348" id="btn-logout-9348">Cerrar sesión / Ocultar panel</button>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Login modal for agency access, hidden by default -->
+    <div class="auth-overlay-9348 hidden-9348" id="auth-overlay-9348">
+      <div class="auth-modal-9348">
+        <div class="auth-modal-header-9348">
+          <i class="fas fa-shield-alt" style="color: var(--primary-9348); font-size: 1.2rem;"></i>
+          <h3>Acceso de Agencia</h3>
+        </div>
+        <form id="auth-form-9348">
+          <div class="form-group-9348">
+            <label class="form-label-9348" for="auth-username-9348">Usuario</label>
+            <input type="text" id="auth-username-9348" class="input-field-9348" autocomplete="username" required>
+          </div>
+          <div class="form-group-9348">
+            <label class="form-label-9348" for="auth-password-9348">Contraseña</label>
+            <input type="password" id="auth-password-9348" class="input-field-9348" autocomplete="current-password" required>
+          </div>
+          <div class="auth-error-9348" id="auth-error-9348"></div>
+          <div class="auth-actions-9348">
+            <button type="button" class="btn-secondary-9348" id="auth-cancel-9348">Cancelar</button>
+            <button type="submit" class="btn-primary-inline-9348">Entrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Live Toast notification element -->
+    <div class="toast-9348" id="toast-9348">
+      <i class="fas fa-check-circle"></i>
+      <span id="toast-message-9348">¡Panel de control del cliente actualizado con éxito!</span>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // ---------------------------------------------------------------
+      // NOTE ON SECURITY: this is a purely client-side gate. It hides the
+      // editor from casual/non-technical users (like your client), but
+      // anyone who opens the browser dev tools or views the page source
+      // can find these credentials. Do not reuse these passwords
+      // elsewhere, and if you need real security, move the editor to a
+      // small backend with server-side auth. See chat notes for details.
+      // ---------------------------------------------------------------
+      const USERS_9348 = {
+        superadmin: { password: 'Sup3r$Admin2026', role: 'superadmin', label: 'Superadmin' },
+        admin: { password: 'Admin$2026', role: 'admin', label: 'Admin' }
+      };
+
+      const SESSION_KEY_9348 = 'campaignAgencyRole9348';
+
+      // Internal State
+      let state = {
+        cost: 30.00,
+        impressions: 2200,
+        clicks: 170,
+        weeklyTrendData: {
+          labels: ['Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          cost: [0, 20, 50, 80, 100, 140, 180, 200],
+          clicks: [130, 160, 220, 280, 350, 480, 600, 700, 800, 900, 1000, 1100, 1200, 1300]
+        }
+      };
+
+      let liveChart = null;
+      //DROPDOWM
+    document.getElementById("mes").addEventListener("change", cargarDatos);
+
+     async function cargarDatos() {
+
+     const mes = document.getElementById("mes").value;
+
+       if (!mes) return;
+
+        const respuesta = await fetch("datos.php?mes=" + mes);
+
+        const datos = await respuesta.json();
+
+    document.getElementById("impresiones").textContent = datos.impresiones;
+    document.getElementById("clics").textContent = datos.clics;
+    document.getElementById("conversiones").textContent = datos.conversiones;
+    document.getElementById("coste").textContent = datos.coste + " €";
+     }
+    
+      
+      // Calculate Derived Metrics
+      function calculateCTR(clicks, impressions) {
+        if (!impressions) return 0;
+        return ((clicks / impressions) * 100).toFixed(2);
+      }
+
+      function calculateCPC(cost, clicks) {
+        if (!clicks) return 0;
+        return (cost / clicks).toFixed(2);
+      }
+
+      // Format Numbers
+      function formatNumber(num) {
+        return parseInt(num, 10).toLocaleString('es-ES');
+      }
+
+      // Update UI components with state values
+      function updateClientDashboardView() {
+        const costVal = document.getElementById('val-cost-9348');
+        const impressionsVal = document.getElementById('val-impressions-9348');
+        const ctrVal = document.getElementById('val-ctr-9348');
+        const cpcVal = document.getElementById('val-cpc-9348');
+
+        costVal.innerText = `$${parseFloat(state.cost).toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        impressionsVal.innerText = formatNumber(state.impressions);
+        
+        const ctr = calculateCTR(state.clicks, state.impressions).replace('.', ',');
+        ctrVal.innerText = `${ctr}%`;
+
+        const cpc = calculateCPC(state.cost, state.clicks).replace('.', ',');
+        cpcVal.innerText = `$${cpc}`;
+
+        // Update active chart
+        updateChartData();
+      }
+
+      // Toast feedback helper
+      function showToastNotification(message) {
+        const toast = document.getElementById('toast-9348');
+        const msg = document.getElementById('toast-message-9348');
+        msg.innerText = message;
+        toast.classList.add('show-9348');
+        setTimeout(() => {
+          toast.classList.remove('show-9348');
+        }, 3000);
+      }
+
+      // Handle custom user form inputs
+      function handleFormSubmission(event) {
+        event.preventDefault();
+        
+        const newCost = parseFloat(document.getElementById('input-cost-9348').value);
+        const newImpressions = parseInt(document.getElementById('input-impressions-9348').value, 10);
+        const newClicks = parseInt(document.getElementById('input-clicks-9348').value, 10);
+
+        if (isNaN(newCost) || isNaN(newImpressions) || isNaN(newClicks)) {
+          showToastNotification("Por favor, ingrese campos numéricos válidos");
+          return;
+        }
+
+        // Apply state updates
+        state.cost = newCost;
+        state.impressions = newImpressions;
+        state.clicks = newClicks;
+
+        // Distribute dummy variance over the week chart smoothly
+        const costPart = parseFloat((newCost / 7).toFixed(2));
+        const clickPart = Math.floor(newClicks / 7);
+        state.weeklyTrendData.cost = Array(7).fill(costPart);
+        state.weeklyTrendData.clicks = Array(7).fill(clickPart);
+
+        updateClientDashboardView();
+        showToastNotification("¡Cálculos en vivo del panel del cliente actualizados!");
+      }
+
+      // Chart.js init & configuration
+      function initLiveChart() {
+        const ctx = document.getElementById('live-trend-chart-9348').getContext('2d');
+        
+        liveChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: state.weeklyTrendData.labels,
+            datasets: [
+              {
+                label: 'Inversión publicitaria (€)',
+                data: state.weeklyTrendData.cost,
+                borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary-9348').trim() || '#4F46E5',
+                backgroundColor: 'rgba(79, 70, 229, 0.05)',
+                borderWidth: 3,
+                tension: 0.35,
+                fill: true,
+                yAxisID: 'y'
+              },
+              {
+                label: 'Clics recibidos',
+                data: state.weeklyTrendData.clicks,
+                borderColor: '#10B981',
+                backgroundColor: 'rgba(16, 185, 129, 0.05)',
+                borderWidth: 3,
+                tension: 0.35,
+                fill: true,
+                yAxisID: 'y1'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  font: {
+                    family: 'Plus Jakarta Sans',
+                    size: 11
+                  },
+                  boxWidth: 12
+                }
+              }
+            },
+            scales: {
+              y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                grid: {
+                  color: 'rgba(226, 232, 240, 0.8)'
+                },
+                ticks: {
+                  color: '#4F46E5',
+                  callback: function(value) { return '€' + value; }
+                }
+              },
+              y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                grid: {
+                  drawOnChartArea: false // prevent grid line overlap
+                },
+                ticks: {
+                  color: '#10B981'
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updateChartData() {
+        if (!liveChart) return;
+        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-9348').trim();
+        liveChart.data.datasets[0].borderColor = primaryColor;
+        liveChart.data.datasets[0].data = state.weeklyTrendData.cost;
+        liveChart.data.datasets[1].data = state.weeklyTrendData.clicks;
+        liveChart.update();
+      }
+
+      // -------------------- Auth / role-gating logic --------------------
+
+      function showEditorForRole(role) {
+        const sidebar = document.getElementById('editor-sidebar-9348');
+        const grid = document.getElementById('grid-container-9348');
+        const styleCustomizer = document.getElementById('style-customizer-9348');
+        const calcInfo = document.getElementById('calc-metrics-info-9348');
+        const roleBadge = document.getElementById('role-badge-9348');
+
+        sidebar.classList.remove('hidden-9348');
+        grid.classList.add('with-editor-9348');
+
+        const isSuperadmin = role === 'superadmin';
+        styleCustomizer.classList.toggle('hidden-9348', !isSuperadmin);
+        calcInfo.classList.toggle('hidden-9348', !isSuperadmin);
+
+        roleBadge.textContent = isSuperadmin ? 'Superadmin' : 'Admin';
+        roleBadge.classList.toggle('role-badge-superadmin-9348', isSuperadmin);
+        roleBadge.classList.toggle('role-badge-admin-9348', !isSuperadmin);
+      }
+
+      function hideEditor() {
+        const sidebar = document.getElementById('editor-sidebar-9348');
+        const grid = document.getElementById('grid-container-9348');
+        sidebar.classList.add('hidden-9348');
+        grid.classList.remove('with-editor-9348');
+        sessionStorage.removeItem(SESSION_KEY_9348);
+      }
+
+      function openAuthModal() {
+        document.getElementById('auth-overlay-9348').classList.remove('hidden-9348');
+        document.getElementById('auth-error-9348').textContent = '';
+        document.getElementById('auth-username-9348').value = '';
+        document.getElementById('auth-password-9348').value = '';
+        document.getElementById('auth-username-9348').focus();
+      }
+
+      function closeAuthModal() {
+        document.getElementById('auth-overlay-9348').classList.add('hidden-9348');
+      }
+
+      function attemptLogin(username, password) {
+        const record = USERS_9348[username.trim().toLowerCase()];
+        if (record && record.password === password) {
+          sessionStorage.setItem(SESSION_KEY_9348, record.role);
+          showEditorForRole(record.role);
+          closeAuthModal();
+          showToastNotification(`Sesión iniciada como ${record.label}`);
+          return true;
+        }
+        return false;
+      }
+
+      // Setup Event Listeners
+      function setupListeners() {
+        // Discreet agency access link opens the login modal
+        document.getElementById('agency-access-link-9348').addEventListener('click', openAuthModal);
+        document.getElementById('auth-cancel-9348').addEventListener('click', closeAuthModal);
+
+        document.getElementById('auth-form-9348').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const username = document.getElementById('auth-username-9348').value;
+          const password = document.getElementById('auth-password-9348').value;
+          const ok = attemptLogin(username, password);
+          if (!ok) {
+            document.getElementById('auth-error-9348').textContent = 'Usuario o contraseña incorrectos';
+          }
+        });
+
+        document.getElementById('btn-logout-9348').addEventListener('click', hideEditor);
+
+        // Form Submission Event
+        const form = document.getElementById('data-update-form-9348');
+        form.addEventListener('submit', handleFormSubmission);
+
+        // Dynamic Interactive Live CSS Customizer (superadmin only, hidden for admin)
+        const colorPicker = document.getElementById('primary-color-picker-9348');
+        const hexLabel = document.getElementById('color-hex-label-9348');
+        
+        colorPicker.addEventListener('input', (e) => {
+          const selectedColor = e.target.value;
+          hexLabel.innerText = selectedColor.toUpperCase();
+          
+          // Modify active CSS variable dynamically
+          document.documentElement.style.setProperty('--primary-9348', selectedColor);
+          
+          // Generate soft light version for backgrounds
+          const softColor = selectedColor + '10'; // adds 10% transparency in hex
+          document.documentElement.style.setProperty('--primary-light-9348', softColor);
+          
+          // Refresh chart and colors
+          updateChartData();
+        });
+      }
+
+      // Initializer execution
+      function init() {
+        setupListeners();
+        initLiveChart();
+        updateClientDashboardView();
+
+        // Restore an existing agency session for this browser tab, if any
+        const savedRole = sessionStorage.getItem(SESSION_KEY_9348);
+        if (savedRole && USERS_9348[Object.keys(USERS_9348).find(k => USERS_9348[k].role === savedRole)]) {
+          showEditorForRole(savedRole);
+        }
+      }
+
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        init();
+      } else {
+        document.addEventListener('DOMContentLoaded', init);
+      }
+
+    })();
+  </script>
+</body>
+</html>
